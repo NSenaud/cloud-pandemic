@@ -13,6 +13,7 @@ public class City {
 	private ArrayList<Inhabitant> inhabitantsList;
 	private ArrayList<Inhabitant> infectedInhabitantsList;
 	private ArrayList<Inhabitant> quarantainedInhabitantsList;
+	private int inhabitantsDead = 0;
 	
 	public City() {
 		/// Initialize  Lists
@@ -48,9 +49,9 @@ public class City {
 			{
 				this.quarantainedInhabitantsList.remove(inhabitant);
 			}
+			
+			inhabitantsDead++;
 		}
-		
-//		println("")
 	}
 	
 	/**
@@ -97,7 +98,45 @@ public class City {
 	 * @param inhabitant An infected inhabitant
 	 */
 	public void putInQuarantine(Inhabitant inhabitant) {
-		inhabitant.setQuarantined(true);
-		this.quarantainedInhabitantsList.add(inhabitant);
+		if (inhabitant.getInfected()) {
+			inhabitant.setQuarantined(true);
+			this.quarantainedInhabitantsList.add(inhabitant);
+		}
+	}
+	
+	/**************************************************************************
+	 * Display Stats
+	 *************************************************************************/
+	
+	/**
+	 * 
+	 * @return Alive inhabitants number
+	 */
+	public int getAliveInhabitants() {
+		return this.inhabitantsList.size();
+	}
+	
+	/**
+	 * 
+	 * @return Infected inhabitants number
+	 */
+	public int getInfectedInhabitants() {
+		return this.infectedInhabitantsList.size();
+	}
+	
+	/**
+	 * 
+	 * @return Quarantined inhabitants number
+	 */
+	public int getQuarantinedInhabitants() {
+		return this.quarantainedInhabitantsList.size();
+	}
+	
+	/**
+	 * 
+	 * @return Died inhabitants number
+	 */
+	public int getInhabitantsDead() {
+		return inhabitantsDead;
 	}
 }
