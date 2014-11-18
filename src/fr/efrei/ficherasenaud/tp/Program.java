@@ -10,6 +10,19 @@ package fr.efrei.ficherasenaud.tp;
  */
 public class Program {
 	public static void main(String[] arguments) {
+		debug();
+	}
+	
+	private static void displayStatistics(City city) {
+		System.out.format("==================== Stats ====================\n");
+		System.out.format("Alive: \t\t%d\n", city.getAliveInhabitants());
+		System.out.format("Infected: \t%d\n", city.getInfectedInhabitants());
+		System.out.format("Quarantined: \t%d\n", city.getQuarantinedInhabitants());
+		System.out.format("Died: \t\t%d\n", city.getInhabitantsDead());
+		System.out.format("Emigrated: \t%d\n", city.getInhabitantsEmigrated());
+	}
+	
+	private static void debug() {
 		System.out.format("============ Create Villejuif City ============\n");
 		City villejuif = new City();
 		
@@ -56,14 +69,5 @@ public class Program {
 		displayStatistics(ouagadougou);
 		System.out.format("> Villejuif\n");
 		displayStatistics(villejuif);
-	}
-	
-	private static void displayStatistics(City city) {
-		System.out.format("==================== Stats ====================\n");
-		System.out.format("Alive: \t\t%d\n", city.getAliveInhabitants());
-		System.out.format("Infected: \t%d\n", city.getInfectedInhabitants());
-		System.out.format("Quarantined: \t%d\n", city.getQuarantinedInhabitants());
-		System.out.format("Died: \t\t%d\n", city.getInhabitantsDead());
-		System.out.format("Emigrated: \t%d\n", city.getInhabitantsEmigrated());
 	}
 }
