@@ -1,6 +1,7 @@
 package fr.efrei.ficherasenaud.tp;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * @class City
@@ -11,16 +12,19 @@ import java.util.ArrayList;
 
 public class City {
 	private ArrayList<Inhabitant> inhabitantsList;
+	private ArrayList<Inhabitant> healthyInhabitantsList;
 	private ArrayList<Inhabitant> infectedInhabitantsList;
 	private ArrayList<Inhabitant> quarantainedInhabitantsList;
 	private int inhabitantsDead = 0;
 	private int inhabitantsEmigrated = 0;
 	
 	public static Exception inhabitantYetInfected;
+	public static Exception allInhabitantsHaveBeenInfected;
 	
 	public City() {
 		/// Initialize  Lists
 		inhabitantsList = new ArrayList<Inhabitant>();
+		healthyInhabitantsList = new ArrayList<Inhabitant>();
 		infectedInhabitantsList = new ArrayList<Inhabitant>();
 		quarantainedInhabitantsList = new ArrayList<Inhabitant>();
 	}
@@ -30,6 +34,7 @@ public class City {
 	 */
 	public void addInhabitant(Inhabitant inhabitant) {
 		this.inhabitantsList.add(inhabitant);
+		this.healthyInhabitantsList.add(inhabitant);
 	}
 	
 	public Inhabitant getInhabitantWithID(int id) {
@@ -71,6 +76,7 @@ public class City {
 		if (inhabitantSource.getInfected()) {
 			inhabitantTarget.setInfected(true);
 			this.infectedInhabitantsList.add(inhabitantTarget);
+			this.healthyInhabitantsList.remove(inhabitantTarget);
 		}
 	}
 	
@@ -84,9 +90,23 @@ public class City {
 		if (!inhabitant.getInfected()) {
 			inhabitant.setInfected(true);
 			this.infectedInhabitantsList.add(inhabitant);
+			this.healthyInhabitantsList.remove(inhabitant);
 		}
 		else {
 			throw inhabitantYetInfected;
+		}
+	}
+	
+	public void randomlyInfectAnHealthyInhabitant() throws Exception {
+		if (this.getAliveInhabitants() > 0) {
+			Random rand = new Random();
+			int index = rand.nextInt(this.getHealthyInhabitants());
+//			System.out.format("%d\n", index);
+			Inhabitant inhabitant = this.healthyInhabitantsList.get(index);
+			this.infect(inhabitant);
+		}
+		else {
+			throw allInhabitantsHaveBeenInfected;
 		}
 	}
 	
@@ -138,6 +158,14 @@ public class City {
 	 */
 	public int getAliveInhabitants() {
 		return this.inhabitantsList.size();
+	}
+	
+	/**
+	 * 
+	 * @return Healthy inhabitants number
+	 */
+	public int getHealthyInhabitants() {
+		return this.healthyInhabitantsList.size();
 	}
 	
 	/**
