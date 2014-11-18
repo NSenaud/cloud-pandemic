@@ -10,6 +10,7 @@ package fr.efrei.ficherasenaud.tp;
  */
 public class Program {
 	public static void main(String[] arguments) {
+		System.out.format("============ Create Villejuif City ============\n");
 		City villejuif = new City();
 		
 		System.out.format("================== Add Jérôme =================\n");
@@ -39,13 +40,30 @@ public class Program {
 		System.out.format("================= Kill Jérôme =================\n");
 		villejuif.kill(jerome);
 		displayStatistics(villejuif);
+		
+		System.out.format("=================== Add Jack ==================\n");
+		Inhabitant jack = new Inhabitant("Jack");
+		villejuif.addInhabitant(jack);
+		displayStatistics(villejuif);
+		
+		System.out.format("=========== Create Ouagadougou City ===========\n");
+		City ouagadougou = new City();
+		
+		System.out.format("====== Jack Emigrates to Ouagadougou City =====\n");
+		villejuif.inhabitantEmigratesToCity(jack, ouagadougou);
+		
+		System.out.format("> Ouagadougou\n");
+		displayStatistics(ouagadougou);
+		System.out.format("> Villejuif\n");
+		displayStatistics(villejuif);
 	}
 	
 	private static void displayStatistics(City city) {
 		System.out.format("==================== Stats ====================\n");
-		System.out.format("Alive: \t%d\n", city.getAliveInhabitants());
+		System.out.format("Alive: \t\t%d\n", city.getAliveInhabitants());
 		System.out.format("Infected: \t%d\n", city.getInfectedInhabitants());
 		System.out.format("Quarantined: \t%d\n", city.getQuarantinedInhabitants());
-		System.out.format("Died: \t%d\n", city.getInhabitantsDead());
+		System.out.format("Died: \t\t%d\n", city.getInhabitantsDead());
+		System.out.format("Emigrated: \t%d\n", city.getInhabitantsEmigrated());
 	}
 }

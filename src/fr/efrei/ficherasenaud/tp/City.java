@@ -14,6 +14,7 @@ public class City {
 	private ArrayList<Inhabitant> infectedInhabitantsList;
 	private ArrayList<Inhabitant> quarantainedInhabitantsList;
 	private int inhabitantsDead = 0;
+	private int inhabitantsEmigrated = 0;
 	
 	public City() {
 		/// Initialize  Lists
@@ -104,6 +105,17 @@ public class City {
 		}
 	}
 	
+	/**
+	 * In the panic takes an inhabitant, he may left the city for another.
+	 * 
+	 * @param inhabitant A panicked inhabitant of the current city
+	 * @param city The city the inhabitant wants to reach
+	 */
+	public void inhabitantEmigratesToCity(Inhabitant inhabitant, City city) {
+		city.addInhabitant(inhabitant);
+		this.inhabitantsEmigrated++;
+	}
+	
 	/**************************************************************************
 	 * Display Stats
 	 *************************************************************************/
@@ -138,5 +150,13 @@ public class City {
 	 */
 	public int getInhabitantsDead() {
 		return inhabitantsDead;
+	}
+	
+	/**
+	 * 
+	 * @return Emigrated inhabitants number
+	 */
+	public int getInhabitantsEmigrated() {
+		return inhabitantsEmigrated;
 	}
 }
