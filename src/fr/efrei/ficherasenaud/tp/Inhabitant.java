@@ -11,6 +11,7 @@ public class Inhabitant {
 	private boolean infected;
 	private boolean quarantined;
 	private String name;
+	private int id;
 	
 	/**
 	 * 
@@ -21,6 +22,12 @@ public class Inhabitant {
 		this.infected = false;
 		this.quarantined = false;
 		this.name = name;
+	}
+	
+	public Inhabitant(int id) {
+		this.infected = false;
+		this.quarantined = false;
+		this.id = id;
 	}
 	
 	/**

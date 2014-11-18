@@ -16,6 +16,8 @@ public class City {
 	private int inhabitantsDead = 0;
 	private int inhabitantsEmigrated = 0;
 	
+	public static Exception inhabitantYetInfected;
+	
 	public City() {
 		/// Initialize  Lists
 		inhabitantsList = new ArrayList<Inhabitant>();
@@ -28,6 +30,10 @@ public class City {
 	 */
 	public void addInhabitant(Inhabitant inhabitant) {
 		this.inhabitantsList.add(inhabitant);
+	}
+	
+	public Inhabitant getInhabitantWithID(int id) {
+		return this.inhabitantsList.get(id);
 	}
 	
 	/**
@@ -72,10 +78,16 @@ public class City {
 	 * The City may arbitrary infects an inhabitant.
 	 * 
 	 * @param inhabitant A non infected inhabitant
+	 * @throws Throwable inhabitantYetInfected
 	 */
-	public void infect(Inhabitant inhabitant) {
-		inhabitant.setInfected(true);
-		this.infectedInhabitantsList.add(inhabitant);
+	public void infect(Inhabitant inhabitant) throws Exception {
+		if (!inhabitant.getInfected()) {
+			inhabitant.setInfected(true);
+			this.infectedInhabitantsList.add(inhabitant);
+		}
+		else {
+			throw inhabitantYetInfected;
+		}
 	}
 	
 	/**
