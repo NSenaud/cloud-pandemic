@@ -15,6 +15,7 @@ public class City {
 	private ArrayList<Inhabitant> healthyInhabitantsList;
 	private ArrayList<Inhabitant> infectedInhabitantsList;
 	private ArrayList<Inhabitant> quarantainedInhabitantsList;
+	
 	private int inhabitantsDead = 0;
 	private int inhabitantsEmigrated = 0;
 	
@@ -148,6 +149,19 @@ public class City {
 		if (inhabitant.getInfected()) {
 			inhabitant.setQuarantined(true);
 			this.quarantainedInhabitantsList.add(inhabitant);
+		}
+	}
+	
+	public void randomlyPutInQuarantineAnInfectedInhabitant() throws Exception {
+		if (this.getInfectedInhabitants() > 0) {
+			Random rand = new Random();
+			int index = rand.nextInt(this.getInfectedInhabitants());
+			
+			Inhabitant inhabitant = this.infectedInhabitantsList.get(index);
+			this.putInQuarantine(inhabitant);
+		}
+		else {
+			throw noInfectedInhabitant;
 		}
 	}
 	

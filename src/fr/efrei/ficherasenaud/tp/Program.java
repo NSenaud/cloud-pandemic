@@ -69,6 +69,23 @@ public class Program {
 	}
 	
 	private static void nextTurn(City city) {
+		/// Infected Inhabitants Detection
+		int contagiousInhabitantsNumber = city.getInfectedInhabitants() - city.getQuarantinedInhabitants();
+		int detectedInfectedInhabitants = (int) ((int) contagiousInhabitantsNumber*Parameters.detectionEfficacity);
+		for (int i=0 ; i<detectedInfectedInhabitants ; i++) {
+			try {
+				city.randomlyPutInQuarantineAnInfectedInhabitant();
+			} 
+			catch (Exception e) {
+				if (e == City.noInfectedInhabitant) { 
+					System.out.format("Looks like you won!\n");
+				}
+				else {
+					e.printStackTrace();
+				}
+			}
+		}
+				
 		/// Death (Sometimes Happens)
 		int dyingInhabitantsNumber = (int) ((int) (city.getInfectedInhabitants()/2)*Parameters.mortalityRate + 1);
 		for (int i=0 ; i<dyingInhabitantsNumber ; i++) {
@@ -86,7 +103,7 @@ public class Program {
 		}
 		
 		/// Exponential Growth
-		int contagiousInhabitantsNumber = city.getInfectedInhabitants() - city.getQuarantinedInhabitants();
+		contagiousInhabitantsNumber = city.getInfectedInhabitants() - city.getQuarantinedInhabitants();
 		
 		if (contagiousInhabitantsNumber > city.getHealthyInhabitants()) {
 			contagiousInhabitantsNumber = city.getHealthyInhabitants();
