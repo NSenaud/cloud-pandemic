@@ -20,6 +20,7 @@ public class City {
 	
 	public static Exception inhabitantYetInfected;
 	public static Exception allInhabitantsHaveBeenInfected;
+	public static Exception noInfectedInhabitant;
 	
 	public City() {
 		/// Initialize  Lists
@@ -46,6 +47,19 @@ public class City {
 	 */
 	public void kill(Inhabitant inhabitant) {
 		die(inhabitant);		
+	}
+	
+	public void randomlyKillAnInfectedInhabitant() throws Exception {
+		if (this.getInfectedInhabitants() > 0) {
+			Random rand = new Random();
+			int index = rand.nextInt(this.getInfectedInhabitants());
+			
+			Inhabitant inhabitant = this.infectedInhabitantsList.get(index);
+			this.kill(inhabitant);
+		}
+		else {
+			throw noInfectedInhabitant;
+		}
 	}
 	
 	/**
@@ -98,10 +112,10 @@ public class City {
 	}
 	
 	public void randomlyInfectAnHealthyInhabitant() throws Exception {
-		if (this.getAliveInhabitants() > 0) {
+		if (this.getHealthyInhabitants() > 0) {
 			Random rand = new Random();
 			int index = rand.nextInt(this.getHealthyInhabitants());
-//			System.out.format("%d\n", index);
+			
 			Inhabitant inhabitant = this.healthyInhabitantsList.get(index);
 			this.infect(inhabitant);
 		}

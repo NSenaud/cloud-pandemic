@@ -41,12 +41,10 @@ public class Program {
 			}
 		}
 		
-		displayStatistics(gamersCity);
-		
 		/// Game's Main Loop
 		////////////////////
 		int turns = 0;
-		while (gamersCity.getHealthyInhabitants() > 0) {
+		while (gamersCity.getAliveInhabitants() > 0) {
 			/// Game Motor
 			nextTurn(gamersCity);
 			
@@ -71,6 +69,22 @@ public class Program {
 	}
 	
 	private static void nextTurn(City city) {
+		/// Death (Sometimes Happens)
+		int dyingInhabitantsNumber = (int) ((int) (city.getInfectedInhabitants()/2)*Parameters.mortalityRate + 1);
+		for (int i=0 ; i<dyingInhabitantsNumber ; i++) {
+			try {
+				city.randomlyKillAnInfectedInhabitant();
+			} 
+			catch (Exception e) {
+				if (e == City.noInfectedInhabitant) { 
+					System.out.format("Looks like you won!\n");
+				}
+				else {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 		/// Exponential Growth
 		int contagiousInhabitantsNumber = city.getInfectedInhabitants() - city.getQuarantinedInhabitants();
 		
