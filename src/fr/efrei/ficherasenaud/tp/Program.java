@@ -1,5 +1,7 @@
 package fr.efrei.ficherasenaud.tp;
 
+import java.util.Random;
+
 /**
  * 
  * @class Program
@@ -10,7 +12,40 @@ package fr.efrei.ficherasenaud.tp;
  */
 public class Program {
 	public static void main(String[] arguments) {
-		debug();
+		/// For testing only
+		//debug();
+		
+		/// Game Initialization
+		///////////////////////
+		
+		/// City Initialization
+		City gamersCity = new City();
+		for (int i=0 ; i<Parameters.initialInhabitantsNumber ; i++) {
+			Inhabitant inhabitant = new Inhabitant(i);
+			gamersCity.addInhabitant(inhabitant);
+		}
+		
+		/// Disease Initialization
+		Random rand = new Random();
+		for (int i=0 ; i<Parameters.initialInfectedInhabitantsNumber ; i++) {
+			int id = (int) rand.nextInt(Parameters.initialInhabitantsNumber);
+			System.out.format("%d\n", id);
+			try {
+				gamersCity.infect(gamersCity.getInhabitantWithID(id));
+			} catch (Exception e) {
+				if (e == City.inhabitantYetInfected) { 
+					// The randomly chosen id was already infected.
+					i--;
+				}
+				else {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	private static void evolution(City city) {
+		
 	}
 	
 	private static void displayStatistics(City city) {
@@ -39,7 +74,12 @@ public class Program {
 		displayStatistics(villejuif);
 		
 		System.out.format("================ Infect Jérôme ================\n");
-		villejuif.infect(jerome);
+		try {
+			villejuif.infect(jerome);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		displayStatistics(villejuif);
 		System.out.format("========== Put Jérôme in Quarantined ==========\n");
 		villejuif.putInQuarantine(jerome);
@@ -48,7 +88,12 @@ public class Program {
 		villejuif.heal(jerome);
 		displayStatistics(villejuif);
 		System.out.format("================ Infect Jérôme ================\n");
-		villejuif.infect(jerome);
+		try {
+			villejuif.infect(jerome);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		displayStatistics(villejuif);
 		System.out.format("================= Kill Jérôme =================\n");
 		villejuif.kill(jerome);
