@@ -1,6 +1,7 @@
 package fr.efrei.ficherasenaud.tp;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * @class City
@@ -11,16 +12,23 @@ import java.util.ArrayList;
 
 public class City {
 	private ArrayList<Inhabitant> inhabitantsList;
+	private ArrayList<Inhabitant> healthyInhabitantsList;
 	private ArrayList<Inhabitant> infectedInhabitantsList;
 	private ArrayList<Inhabitant> quarantainedInhabitantsList;
+	
 	private int inhabitantsDead = 0;
 	private int inhabitantsEmigrated = 0;
 	
 	public static Exception inhabitantYetInfected;
+	public static Exception allInhabitantsHaveBeenInfected;
+	public static Exception noInfectedInhabitant;
+	public static Exception nobodyQuarantined;
+	public static Exception noInfectedInhabitantNotInQuarantined;
 	
 	public City() {
 		/// Initialize  Lists
 		inhabitantsList = new ArrayList<Inhabitant>();
+		healthyInhabitantsList = new ArrayList<Inhabitant>();
 		infectedInhabitantsList = new ArrayList<Inhabitant>();
 		quarantainedInhabitantsList = new ArrayList<Inhabitant>();
 	}
@@ -30,6 +38,7 @@ public class City {
 	 */
 	public void addInhabitant(Inhabitant inhabitant) {
 		this.inhabitantsList.add(inhabitant);
+		this.healthyInhabitantsList.add(inhabitant);
 	}
 	
 	public Inhabitant getInhabitantWithID(int id) {
@@ -43,12 +52,23 @@ public class City {
 		die(inhabitant);		
 	}
 	
+	public void randomlyKillAnInfectedInhabitant() throws Exception {
+		if (this.getInfectedInhabitants() > 0) {
+			Random rand = new Random();
+			int index = rand.nextInt(this.getInfectedInhabitants());
+			
+			Inhabitant inhabitant = this.infectedInhabitantsList.get(index);
+			this.kill(inhabitant);
+		}
+		else {
+			throw noInfectedInhabitant;
+		}
+	}
+	
 	/**
 	 * @param inhabitant An infected inhabitant
 	 */
 	public void die(Inhabitant inhabitant) {
-		this.inhabitantsList.remove(inhabitant);
-		
 		if (inhabitant.getInfected()) {
 			this.infectedInhabitantsList.remove(inhabitant);
 			
@@ -56,9 +76,10 @@ public class City {
 			{
 				this.quarantainedInhabitantsList.remove(inhabitant);
 			}
-			
-			inhabitantsDead++;
 		}
+		
+		this.inhabitantsList.remove(inhabitant);
+		inhabitantsDead++;
 	}
 	
 	/**
@@ -71,6 +92,7 @@ public class City {
 		if (inhabitantSource.getInfected()) {
 			inhabitantTarget.setInfected(true);
 			this.infectedInhabitantsList.add(inhabitantTarget);
+			this.healthyInhabitantsList.remove(inhabitantTarget);
 		}
 	}
 	
@@ -84,9 +106,23 @@ public class City {
 		if (!inhabitant.getInfected()) {
 			inhabitant.setInfected(true);
 			this.infectedInhabitantsList.add(inhabitant);
+			this.healthyInhabitantsList.remove(inhabitant);
 		}
 		else {
 			throw inhabitantYetInfected;
+		}
+	}
+	
+	public void randomlyInfectAnHealthyInhabitant() throws Exception {
+		if (this.getHealthyInhabitants() > 0) {
+			Random rand = new Random();
+			int index = rand.nextInt(this.getHealthyInhabitants());
+			
+			Inhabitant inhabitant = this.healthyInhabitantsList.get(index);
+			this.infect(inhabitant);
+		}
+		else {
+			throw allInhabitantsHaveBeenInfected;
 		}
 	}
 	
@@ -102,6 +138,20 @@ public class City {
 			inhabitant.setQuarantined(false);
 			this.infectedInhabitantsList.remove(inhabitant);
 			this.quarantainedInhabitantsList.remove(inhabitant);
+			this.healthyInhabitantsList.add(inhabitant);
+		}
+	}
+	
+	public void randomlyHealAQuarantinedInhabitant() throws Exception {
+		if (this.getQuarantinedInhabitants() > 0) {
+			Random rand = new Random();
+			int index = rand.nextInt(this.getQuarantinedInhabitants());
+			
+			Inhabitant inhabitant = this.quarantainedInhabitantsList.get(index);
+			this.heal(inhabitant);
+		}
+		else {
+			throw nobodyQuarantined;
 		}
 	}
 	
@@ -111,14 +161,39 @@ public class City {
 	 * @param inhabitant An infected inhabitant
 	 */
 	public void putInQuarantine(Inhabitant inhabitant) {
-		if (inhabitant.getInfected()) {
+		if (inhabitant.getInfected() && !inhabitant.getQuarantined()) {
 			inhabitant.setQuarantined(true);
 			this.quarantainedInhabitantsList.add(inhabitant);
 		}
 	}
 	
 	/**
-	 * In the panic takes an inhabitant, he may left the city for another.
+	 * Randomly Put in Quarantined an Infected Inhabitant
+	 * 
+	 * @throws Exception noInfectedInhabitantNotInQuarantined
+	 */
+	public void randomlyPutInQuarantineAnInfectedInhabitant() throws Exception {
+		if ((this.getInfectedInhabitants() - this.getQuarantinedInhabitants()) > 0) {
+			Random rand = new Random();
+			
+			int index = rand.nextInt(this.getInfectedInhabitants());
+			Inhabitant inhabitant = this.infectedInhabitantsList.get(index);
+			
+			// Inhabitant yet in quarantined
+			while (inhabitant.getQuarantined()) {
+				inhabitant = this.infectedInhabitantsList.get(index);
+				index = rand.nextInt(this.getInfectedInhabitants());
+			}
+			
+			this.putInQuarantine(inhabitant);
+		}
+		else {
+			throw noInfectedInhabitantNotInQuarantined;
+		}
+	}
+	
+	/**
+	 * If the panic takes an inhabitant, he may left the city for another.
 	 * 
 	 * @param inhabitant A panicked inhabitant of the current city
 	 * @param city The city the inhabitant wants to reach
@@ -138,6 +213,14 @@ public class City {
 	 */
 	public int getAliveInhabitants() {
 		return this.inhabitantsList.size();
+	}
+	
+	/**
+	 * 
+	 * @return Healthy inhabitants number
+	 */
+	public int getHealthyInhabitants() {
+		return this.healthyInhabitantsList.size();
 	}
 	
 	/**
