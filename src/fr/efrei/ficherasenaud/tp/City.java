@@ -23,6 +23,7 @@ public class City {
 	public static Exception allInhabitantsHaveBeenInfected;
 	public static Exception noInfectedInhabitant;
 	public static Exception nobodyQuarantined;
+	public static Exception noInfectedInhabitantNotInQuarantined;
 	
 	public City() {
 		/// Initialize  Lists
@@ -68,8 +69,6 @@ public class City {
 	 * @param inhabitant An infected inhabitant
 	 */
 	public void die(Inhabitant inhabitant) {
-		this.inhabitantsList.remove(inhabitant);
-		
 		if (inhabitant.getInfected()) {
 			this.infectedInhabitantsList.remove(inhabitant);
 			
@@ -77,9 +76,10 @@ public class City {
 			{
 				this.quarantainedInhabitantsList.remove(inhabitant);
 			}
-			
-			inhabitantsDead++;
 		}
+		
+		this.inhabitantsList.remove(inhabitant);
+		inhabitantsDead++;
 	}
 	
 	/**
@@ -161,27 +161,39 @@ public class City {
 	 * @param inhabitant An infected inhabitant
 	 */
 	public void putInQuarantine(Inhabitant inhabitant) {
-		if (inhabitant.getInfected()) {
+		if (inhabitant.getInfected() && !inhabitant.getQuarantined()) {
 			inhabitant.setQuarantined(true);
 			this.quarantainedInhabitantsList.add(inhabitant);
 		}
 	}
 	
+	/**
+	 * Randomly Put in Quarantined an Infected Inhabitant
+	 * 
+	 * @throws Exception noInfectedInhabitantNotInQuarantined
+	 */
 	public void randomlyPutInQuarantineAnInfectedInhabitant() throws Exception {
-		if (this.getInfectedInhabitants() > 0) {
+		if ((this.getInfectedInhabitants() - this.getQuarantinedInhabitants()) > 0) {
 			Random rand = new Random();
-			int index = rand.nextInt(this.getInfectedInhabitants());
 			
+			int index = rand.nextInt(this.getInfectedInhabitants());
 			Inhabitant inhabitant = this.infectedInhabitantsList.get(index);
+			
+			// Inhabitant yet in quarantined
+			while (inhabitant.getQuarantined()) {
+				inhabitant = this.infectedInhabitantsList.get(index);
+				index = rand.nextInt(this.getInfectedInhabitants());
+			}
+			
 			this.putInQuarantine(inhabitant);
 		}
 		else {
-			throw noInfectedInhabitant;
+			throw noInfectedInhabitantNotInQuarantined;
 		}
 	}
 	
 	/**
-	 * In the panic takes an inhabitant, he may left the city for another.
+	 * If the panic takes an inhabitant, he may left the city for another.
 	 * 
 	 * @param inhabitant A panicked inhabitant of the current city
 	 * @param city The city the inhabitant wants to reach

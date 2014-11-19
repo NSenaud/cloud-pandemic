@@ -71,6 +71,7 @@ public class Program {
 	private static void nextTurn(City city) {
 		/// Infected Inhabitants Detection
 		int contagiousInhabitantsNumber = city.getInfectedInhabitants() - city.getQuarantinedInhabitants();
+		if (contagiousInhabitantsNumber < 0) contagiousInhabitantsNumber = 0;
 		int detectedInfectedInhabitants = (int) ((int) contagiousInhabitantsNumber*Parameters.detectionEfficacity);
 		for (int i=0 ; i<detectedInfectedInhabitants ; i++) {
 			try {
@@ -93,8 +94,8 @@ public class Program {
 				city.randomlyHealAQuarantinedInhabitant();
 			} 
 			catch (Exception e) {
-				if (e == City.noInfectedInhabitant) { 
-					System.out.format("Looks like you won!\n");
+				if (e == City.noInfectedInhabitantNotInQuarantined) { 
+					System.out.format("All Infected Inhabitants are in Quarantined!\n");
 				}
 				else {
 					e.printStackTrace();
@@ -124,7 +125,7 @@ public class Program {
 		if (contagiousInhabitantsNumber > city.getHealthyInhabitants()) {
 			contagiousInhabitantsNumber = city.getHealthyInhabitants();
 		}
-		System.out.format("%d\n", contagiousInhabitantsNumber);
+		if (contagiousInhabitantsNumber < 0) contagiousInhabitantsNumber = 0;
 		
 		for (int i=0 ; i<contagiousInhabitantsNumber ; i++) {
 			try {
