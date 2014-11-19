@@ -22,6 +22,7 @@ public class City {
 	public static Exception inhabitantYetInfected;
 	public static Exception allInhabitantsHaveBeenInfected;
 	public static Exception noInfectedInhabitant;
+	public static Exception nobodyQuarantined;
 	
 	public City() {
 		/// Initialize  Lists
@@ -137,6 +138,20 @@ public class City {
 			inhabitant.setQuarantined(false);
 			this.infectedInhabitantsList.remove(inhabitant);
 			this.quarantainedInhabitantsList.remove(inhabitant);
+			this.healthyInhabitantsList.add(inhabitant);
+		}
+	}
+	
+	public void randomlyHealAQuarantinedInhabitant() throws Exception {
+		if (this.getQuarantinedInhabitants() > 0) {
+			Random rand = new Random();
+			int index = rand.nextInt(this.getQuarantinedInhabitants());
+			
+			Inhabitant inhabitant = this.quarantainedInhabitantsList.get(index);
+			this.heal(inhabitant);
+		}
+		else {
+			throw nobodyQuarantined;
 		}
 	}
 	

@@ -85,6 +85,22 @@ public class Program {
 				}
 			}
 		}
+		
+		/// Heal Some Quarantined Inhabitants
+		int healedInhabitans = (int) ((int) city.getQuarantinedInhabitants()*(1-Parameters.mortalityRate));
+		for (int i=0 ; i<healedInhabitans ; i++) {
+			try {
+				city.randomlyHealAQuarantinedInhabitant();
+			} 
+			catch (Exception e) {
+				if (e == City.noInfectedInhabitant) { 
+					System.out.format("Looks like you won!\n");
+				}
+				else {
+					e.printStackTrace();
+				}
+			}
+		}
 				
 		/// Death (Sometimes Happens)
 		int dyingInhabitantsNumber = (int) ((int) (city.getInfectedInhabitants()/2)*Parameters.mortalityRate + 1);
