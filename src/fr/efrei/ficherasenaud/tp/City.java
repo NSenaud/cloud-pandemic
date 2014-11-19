@@ -41,10 +41,6 @@ public class City {
 		this.healthyInhabitantsList.add(inhabitant);
 	}
 	
-	public Inhabitant getInhabitantWithID(int id) {
-		return this.inhabitantsList.get(id);
-	}
-	
 	/**
 	 * @param inhabitant An infected inhabitant
 	 */
@@ -52,6 +48,11 @@ public class City {
 		die(inhabitant);		
 	}
 	
+	/**
+	 * Randomly Kill An Infected Inhabitant.
+	 * 
+	 * @throws Exception Nobody Is Infected
+	 */
 	public void randomlyKillAnInfectedInhabitant() throws Exception {
 		if (this.getInfectedInhabitants() > 0) {
 			Random rand = new Random();
@@ -113,6 +114,11 @@ public class City {
 		}
 	}
 	
+	/**
+	 * Randomly Infect an Healthy Inhabitant.
+	 * 
+	 * @throws Exception All Inhabitants Have Already Been Infected 
+	 */
 	public void randomlyInfectAnHealthyInhabitant() throws Exception {
 		if (this.getHealthyInhabitants() > 0) {
 			Random rand = new Random();
@@ -142,6 +148,11 @@ public class City {
 		}
 	}
 	
+	/**
+	 * Randomly Heal A Quarantined Inhabitant.
+	 * 
+	 * @throws Exception Nobody in Quarantined
+	 */
 	public void randomlyHealAQuarantinedInhabitant() throws Exception {
 		if (this.getQuarantinedInhabitants() > 0) {
 			Random rand = new Random();
@@ -168,9 +179,9 @@ public class City {
 	}
 	
 	/**
-	 * Randomly Put in Quarantined an Infected Inhabitant
+	 * Randomly Put in Quarantined an Infected Inhabitant.
 	 * 
-	 * @throws Exception noInfectedInhabitantNotInQuarantined
+	 * @throws Exception Nobody Infected Not Yet Quarantined
 	 */
 	public void randomlyPutInQuarantineAnInfectedInhabitant() throws Exception {
 		if ((this.getInfectedInhabitants() - this.getQuarantinedInhabitants()) > 0) {

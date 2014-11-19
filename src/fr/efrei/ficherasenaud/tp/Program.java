@@ -1,7 +1,5 @@
 package fr.efrei.ficherasenaud.tp;
 
-import java.util.Random;
-
 /**
  * 
  * @class Program
@@ -68,6 +66,11 @@ public class Program {
 		System.out.format("You have been decimated in %d %ss\n", turns, Parameters.turnUnit);
 	}
 	
+	/**
+	 * Compute Next Game's Turn
+	 * 
+	 * @param city City
+	 */
 	private static void nextTurn(City city) {
 		/// Infected Inhabitants Detection
 		int contagiousInhabitantsNumber = city.getInfectedInhabitants() - city.getQuarantinedInhabitants();
@@ -142,6 +145,11 @@ public class Program {
 		}
 	}
 	
+	/**
+	 * Display City's Statistics
+	 * 
+	 * @param city City
+	 */
 	private static void displayStatistics(City city) {
 		System.out.format("==================== Stats ====================\n");
 		System.out.format("Alive: \t\t%d\n",     city.getAliveInhabitants());
@@ -152,6 +160,9 @@ public class Program {
 		System.out.format("Emigrated: \t%d\n",   city.getInhabitantsEmigrated());
 	}
 	
+	/**
+	 * For General Tests of Mains Functions 
+	 */
 	private static void debug() {
 		System.out.format("============ Create Villejuif City ============\n");
 		City villejuif = new City();
