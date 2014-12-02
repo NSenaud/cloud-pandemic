@@ -1,0 +1,3 @@
+[submodule "motor"]
+	path = motor
+	url = git@github.com:NSenaud/cloud-pandemic-motor.git
