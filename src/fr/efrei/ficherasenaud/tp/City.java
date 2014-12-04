@@ -1,6 +1,9 @@
 package fr.efrei.ficherasenaud.tp;
 
+import fr.efrei.paumier.common.selection.Selector;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -10,7 +13,7 @@ import java.util.Random;
  *  in quarantine, and heal them if they are in quarantine.
  */
 
-public class City {
+public class City implements Selector<Inhabitant> {
 	private ArrayList<Inhabitant> inhabitantsList;
 	private ArrayList<Inhabitant> healthyInhabitantsList;
 	private ArrayList<Inhabitant> infectedInhabitantsList;
@@ -264,5 +267,12 @@ public class City {
 	 */
 	public int getInhabitantsEmigrated() {
 		return inhabitantsEmigrated;
+	}
+	
+	public Inhabitant selectAmong(List<Inhabitant> choices) {
+		Random rand = new Random();
+		
+		int index = rand.nextInt(choices.size());
+		return choices.get(index);
 	}
 }
