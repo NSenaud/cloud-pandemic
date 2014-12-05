@@ -108,6 +108,15 @@ public class City implements Selector<Inhabitant> {
 	 */
 	public void infect(Inhabitant inhabitant) throws Exception {
 		if (!inhabitant.getInfected()) {
+			CityEvent willInfect = new CityEvent();
+		}
+		else {
+			throw inhabitantYetInfected;
+		}
+	}
+	
+	public void infected(Inhabitant inhabitant) throws Exception {
+		if (!inhabitant.getInfected()) {
 			inhabitant.setInfected(true);
 			this.infectedInhabitantsList.add(inhabitant);
 			this.healthyInhabitantsList.remove(inhabitant);

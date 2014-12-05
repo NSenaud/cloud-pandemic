@@ -1,5 +1,11 @@
 package fr.efrei.ficherasenaud.tp;
 
+import java.time.Duration;
+
+import fr.efrei.paumier.common.time.Event;
+import fr.efrei.paumier.common.time.EventQueue;
+import fr.efrei.paumier.common.time.GameEngine;
+
 /**
  * 
  * @class Program
