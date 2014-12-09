@@ -275,4 +275,5 @@ public class City implements Selector<Inhabitant> {
 		int index = rand.nextInt(choices.size());
 		return choices.get(index);
 	}
+	
 }
