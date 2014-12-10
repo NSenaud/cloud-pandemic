@@ -108,7 +108,7 @@ public class City implements Selector<Inhabitant> {
 	 */
 	public void infect(Inhabitant inhabitant) throws Exception {
 		if (!inhabitant.getInfected()) {
-			CityEvent willInfect = new CityEvent();
+//			EventQueueP willInfect = new EventQueueP();
 		}
 		else {
 			throw inhabitantYetInfected;
