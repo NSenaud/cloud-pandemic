@@ -278,6 +278,7 @@ public class City implements Selector<Inhabitant> {
 		return inhabitantsEmigrated;
 	}
 	
+	@Override
 	public Inhabitant selectAmong(List<Inhabitant> choices) {
 		Random rand = new Random();
 		
