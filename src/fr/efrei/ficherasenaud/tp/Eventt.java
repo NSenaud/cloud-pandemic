@@ -4,7 +4,8 @@
 package fr.efrei.ficherasenaud.tp;
 
 import java.time.Duration;
-import javax.xml.datatype.DatatypeFactory;
+//import javax.xml.datatype.Duration;
+//import javax.xml.datatype.DatatypeFactory;
 import java.util.Date;
 
 import fr.efrei.ficherasenaud.tp.common.Event;
@@ -16,68 +17,42 @@ import fr.efrei.ficherasenaud.tp.common.Event;
 public class Eventt implements Event{
 	private Duration duration;
 	private double rate;
+	private String change;
 	
-	/**
-	 * 
-	 */
+	// Constructor
 	public Eventt() {
 		rate = 1;
-		duration = newDuration(0);
-		
+		//duration.addTo(0);
+	}
+	public Eventt(String change){
+		rate = 1;
+		this.change = change;
 	}
 	
+	// Setters
 	public void setDuration(Duration in){
 		duration = in;
 	}
-	
 	public void setRate(double in){
 		rate = in;
 	}
-
-	@Override
-	public void trigger() {
-		if(type == "infect");
-			
-			
-		
-	}
-
+	
+	// Getters
 	@Override
 	public Duration getBaseDuration() {
 		return duration;
 	}
-
 	@Override
 	public double getRate() {
 		return rate;
 	}
-	
-	/**
-	 * An Inhabitant infects another one.
-	 * 
-	 * @param inhabitantSource An infected inhabitant
-	 * @param inhabitantTarget A non infected inhabitant
-	 */
-	public void infect(Inhabitant inhabitantSource, Inhabitant inhabitantTarget) {
-		thread a = new thread();
+
+	// FONCTIONS
+	@Override
+	public void trigger() {
+		//if(type == "infect");
 		
+		
+		//...
 	}
-	
-	/**
-	 * 
-	 * @param inhabitant A non infected inhabitant
-	 * @throws Throwable inhabitantYetInfected
-	 */
-	public void infect(Inhabitant inhabitant) throws Exception {
-
-	}
-	
-	/**
-	 * 
-	 * @param inhabitant An infected inhabitant
-	 */
-	public void heal(Inhabitant inhabitant) {
-
-	}
-
 }
