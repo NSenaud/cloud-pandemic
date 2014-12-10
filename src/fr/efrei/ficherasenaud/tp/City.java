@@ -269,6 +269,38 @@ public class City implements Selector<Inhabitant> {
 		return inhabitantsEmigrated;
 	}
 	
+	/**
+	 * 
+	 * @return Alive inhabitants array
+	 */
+	public ArrayList<Inhabitant> getAliveInhabitantsArray() {
+		return this.inhabitantsList;
+	}
+	
+	/**
+	 * 
+	 * @return Healthy inhabitants array
+	 */
+	public ArrayList<Inhabitant> getHealthyInhabitantsArray() {
+		return this.healthyInhabitantsList;
+	}
+	
+	/**
+	 * 
+	 * @return Infected inhabitants array
+	 */
+	public ArrayList<Inhabitant> getInfectedInhabitantsArray() {
+		return this.infectedInhabitantsList;
+	}
+	
+	/**
+	 * 
+	 * @return Quarantined inhabitants array
+	 */
+	public ArrayList<Inhabitant> getQuarantinedInhabitantsArray() {
+		return this.quarantainedInhabitantsList;
+	}
+	
 	public Inhabitant selectAmong(List<Inhabitant> choices) {
 		Random rand = new Random();
 		

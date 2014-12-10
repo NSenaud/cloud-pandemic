@@ -2,9 +2,9 @@ package fr.efrei.ficherasenaud.tp;
 
 import fr.efrei.ficherasenaud.tp.common.GameEngine;
 
-public class GameEnginee implements GameEngine {
+public class GameEngineP implements GameEngine {
 
-	public GameEnginee() {
+	public GameEngineP() {
 		// TODO Auto-generated constructor stub
 	}
 

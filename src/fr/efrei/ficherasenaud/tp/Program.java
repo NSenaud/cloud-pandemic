@@ -1,4 +1,5 @@
 package fr.efrei.ficherasenaud.tp;
+import fr.efrei.ficherasenaud.tp.common.*;
 
 /**
  * 
@@ -18,6 +19,7 @@ public class Program {
 		
 		/// City Initialization
 		City gamersCity = new City();
+		EventQueueP eventQueue = new EventQueueP();
 		for (int i=0 ; i<Parameters.initialInhabitantsNumber ; i++) {
 			Inhabitant inhabitant = new Inhabitant(i);
 			gamersCity.addInhabitant(inhabitant);
@@ -44,7 +46,7 @@ public class Program {
 		int turns = 0;
 		while (gamersCity.getAliveInhabitants() > 0) {
 			/// Game Motor
-			nextTurn(gamersCity);
+			nextTurn(gamersCity, eventQueue);
 			
 			/// Display Stats Each Turn
 			System.out.format("%s %d:\n", Parameters.turnUnit, turns);
@@ -71,7 +73,15 @@ public class Program {
 	 * 
 	 * @param city City
 	 */
-	private static void nextTurn(City city) {
+	private static void nextTurn(City city, EventQueueP eventQueue) {
+		
+		/// EventQueue 
+		
+		EventP event1 = new EventP(city, "infect");
+		
+		eventQueue.register(event1);
+	
+		/*
 		/// Infected Inhabitants Detection
 		int contagiousInhabitantsNumber = city.getInfectedInhabitants() - city.getQuarantinedInhabitants();
 		if (contagiousInhabitantsNumber < 0) contagiousInhabitantsNumber = 0;
@@ -143,6 +153,7 @@ public class Program {
 				}
 			}
 		}
+		*/
 	}
 	
 	/**

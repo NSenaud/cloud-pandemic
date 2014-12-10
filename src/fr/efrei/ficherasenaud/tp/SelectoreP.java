@@ -6,7 +6,7 @@ import java.util.Random;
 
 import fr.efrei.ficherasenaud.tp.common.Selectore;
 
-public class Selectoree implements Selectore<Inhabitant> {
+public class SelectoreP implements Selectore<Inhabitant> {
 
 	@Override
 	public Inhabitant selectAmong(List<Inhabitant> choices) {
