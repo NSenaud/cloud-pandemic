@@ -5,6 +5,12 @@ import java.time.Duration;
 import fr.efrei.paumier.common.time.Event;
 
 public class CureEvent implements Event {
+	
+	private Duration duration;
+	
+	public CureEvent() {
+		duration = Parameters.cureWaitDuration;
+	}
 
 	@Override
 	public void trigger() {
@@ -14,8 +20,7 @@ public class CureEvent implements Event {
 
 	@Override
 	public Duration getBaseDuration() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.duration;
 	}
 
 	@Override

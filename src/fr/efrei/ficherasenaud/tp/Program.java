@@ -1,5 +1,7 @@
 package fr.efrei.ficherasenaud.tp;
 
+import java.time.Clock;
+
 /**
  * 
  * @class Program
@@ -11,6 +13,8 @@ package fr.efrei.ficherasenaud.tp;
 public class Program {
 	public static void main(String[] arguments) {
 		/// Start Game.
-		Engine gameEngine = new Engine();
+		Clock clock = Clock.systemDefaultZone();
+		GameEngineAndQueueP game = new GameEngineAndQueueP();
+		game.createGameEngine(clock);
 	}
 }

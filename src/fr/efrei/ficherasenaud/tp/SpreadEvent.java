@@ -6,6 +6,12 @@ import fr.efrei.paumier.common.time.Event;
 
 public class SpreadEvent implements Event {
 
+	private Duration duration;
+	
+	public SpreadEvent() {
+		duration = Parameters.spreadWaitDuration;
+	}
+	
 	@Override
 	public void trigger() {
 		// TODO Auto-generated method stub
@@ -14,8 +20,7 @@ public class SpreadEvent implements Event {
 
 	@Override
 	public Duration getBaseDuration() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.duration;
 	}
 
 	@Override

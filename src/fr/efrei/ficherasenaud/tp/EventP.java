@@ -19,9 +19,9 @@ public class EventP implements Event {
 	private Instant execTime;
 
 	/**** Constructor, Setters, Getters ****/
-	public EventP(City city, int effect) {
+	public EventP(City city, int effect, Duration duration) {
 		this.rate = Parameters.globalRate;
-		duration = Duration.ofSeconds((long) (10*this.rate));
+		this.duration = duration;
 		this.city = city;
 		this.effect = effect;
 	}
@@ -32,7 +32,7 @@ public class EventP implements Event {
 	
 	@Override
 	public Duration getBaseDuration() {
-		return duration;
+		return this.duration;
 	}
 	@Override
 	public double getRate() {
