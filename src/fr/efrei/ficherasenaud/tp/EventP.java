@@ -1,61 +1,35 @@
 package fr.efrei.ficherasenaud.tp;
 
-import java.time.Duration;
-
 import fr.efrei.paumier.common.time.Event;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.Duration;
+import java.time.Instant;
 
 /**
- * @class CityEvent
+ * @class EventP
  * 
  *
  */
-public class EventP implements Event{
+public class EventP implements Event {
 	private Duration duration;
-	private Date beginning;
 	private double rate;
-//	private SelectoreP selector;
 
 	private City city;
-	private String effect;
-
+	private int effect;
+	private Instant execTime;
 
 	/**** Constructor, Setters, Getters ****/
-
-	public EventP() {
-		this.beginning = new Date();
-		this.rate = 1;
-		// init duration ?
-	}
-	public EventP(City city, String effect) {
-		this.beginning = new Date();
-		this.rate = 1;
+	public EventP(City city, int effect) {
+		this.rate = Parameters.globalRate;
+		duration = Duration.ofSeconds((long) (10*this.rate));
 		this.city = city;
 		this.effect = effect;
-		// init duration ?
 	}
-	public EventP(City city, String effect, Duration duration) {
-		this.beginning = new Date();
-		this.rate = 1;
-		this.city = city;
-		this.effect = effect;
-		this.duration = duration;
-	}
-	public void setDuration(Duration in){
-		duration = in;
-	}
+	
 	public void setRate(double in){
 		rate = in;
 	}
-	public void setCity(City in){
-		city = in;
-	}
-	public void setEffect(String in){
-		effect = in;
-	}
+	
 	@Override
 	public Duration getBaseDuration() {
 		return duration;
@@ -64,41 +38,45 @@ public class EventP implements Event{
 	public double getRate() {
 		return rate;
 	}
+	
+	public void setExecTime(Instant instant) {
+		this.execTime = instant;
+	}
+	
+	public Instant getExecTime() {
+		return this.execTime;
+	}
+	
 	public City getCity() {
-		return city;
+		return this.city;
 	}
-	public String getEffect() {
-		return effect;
-	}
-	public Date getBeginning() {
-		return beginning;
-	}
-
+	
 	/**** FUNC ****/
 	@Override
 	public void trigger() {
-		if(effect == "infect"){
+		if (this.effect == Engine.SPREAD) {
 			try {
-//				city.infect( city.selectAmong(city.getHealthyInhabitantsArray())  );
-			} catch (Exception e) {
+				city.infect(city.selectAmong(city.getHealthyInhabitantsArray()));
+			}
+			catch (Exception e) {
 				System.out.println("SELECTOR ERROR infect 1");
 				e.printStackTrace();
 			}
 		}
-		else if(effect == "infectsomeone"){
+		else if (effect == Engine.CURE) {
 			try {
-//				city.infect( selector.selectAmong(city.getHealthyInhabitantsArray()) , selector.selectAmong(city.getHealthyInhabitantsArray()) );
-			} catch (Exception e) {
-				System.out.println("SELECTOR ERROR infectsomeone1");
-				e.printStackTrace();
-			}
-		}
-		else if(effect == "heal"){
-			try {
-//				city.infect( selector.selectAmong(city.getQuarantinedInhabitantsArray() )  );
+				city.heal(city.selectAmong(city.getQuarantinedInhabitantsArray()));
 			} catch (Exception e) {
 				System.out.println("SELECTOR ERROR heal1");
 				e.printStackTrace();
+			}
+		}
+		else if (effect == Engine.DYING) {
+			try {
+				city.kill(city.selectAmong(city.getInfectedInhabitantsArray()));
+			} catch (Exception e) {
+				System.out.println("Nobody is infected");
+//				e.printStackTrace();
 			}
 		}
 		else {

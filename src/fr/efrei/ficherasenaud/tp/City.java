@@ -108,7 +108,9 @@ public class City implements Selector<Inhabitant> {
 	 */
 	public void infect(Inhabitant inhabitant) throws Exception {
 		if (!inhabitant.getInfected()) {
-//			EventQueueP willInfect = new EventQueueP();
+			inhabitant.setInfected(true);
+			this.infectedInhabitantsList.add(inhabitant);
+			this.healthyInhabitantsList.remove(inhabitant);
 		}
 		else {
 			throw inhabitantYetInfected;
@@ -278,11 +280,47 @@ public class City implements Selector<Inhabitant> {
 		return inhabitantsEmigrated;
 	}
 	
+	/**************************************************************************
+	 * Motor
+	 *************************************************************************/
+	
 	@Override
 	public Inhabitant selectAmong(List<Inhabitant> choices) {
 		Random rand = new Random();
 		
 		int index = rand.nextInt(choices.size());
 		return choices.get(index);
+	}
+	
+	/**
+	 * 
+	 * @return Alive inhabitants number
+	 */
+	public ArrayList<Inhabitant> getAliveInhabitantsArray() {
+		return this.inhabitantsList;
+	}
+	
+	/**
+	 * 
+	 * @return Healthy inhabitants number
+	 */
+	public ArrayList<Inhabitant> getHealthyInhabitantsArray() {
+		return this.healthyInhabitantsList;
+	}
+	
+	/**
+	 * 
+	 * @return Infected inhabitants number
+	 */
+	public ArrayList<Inhabitant> getInfectedInhabitantsArray() {
+		return this.infectedInhabitantsList;
+	}
+	
+	/**
+	 * 
+	 * @return Quarantined inhabitants number
+	 */
+	public ArrayList<Inhabitant> getQuarantinedInhabitantsArray() {
+		return this.quarantainedInhabitantsList;
 	}
 }

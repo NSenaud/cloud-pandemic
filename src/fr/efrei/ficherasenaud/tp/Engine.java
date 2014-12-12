@@ -1,5 +1,11 @@
 package fr.efrei.ficherasenaud.tp;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.util.ArrayList;
+
+import fr.efrei.paumier.common.time.Event;
+import fr.efrei.paumier.common.time.EventQueue;
 import fr.efrei.paumier.common.time.GameEngine;
 
 /**
@@ -7,28 +13,48 @@ import fr.efrei.paumier.common.time.GameEngine;
  * 
  * 
  */
-public class Engine implements GameEngine {
-
-	private EventQueueP eventQueue;
+public class Engine implements GameEngine, EventQueue {
 	private City city;
 	
+	private ArrayList<EventP> EventListInfections;
+	private ArrayList<EventP> EventListHeals;
+	private ArrayList<EventP> EventListKills;
+	private ArrayList<EventP> EventListOthers;
+	
+	public static int SPREAD = 0;
+	public static int DYING = 1;
+	public static int CURE = 2;
+	public static int FAKE = 3;
+	
+	Clock clock = Clock.systemDefaultZone();
+	
 	public Engine() {
-		/// Game Initialization
-		///////////////////////
+		/*********************
+		 * Game Initialization
+		 *********************/
 		
-		eventQueue = new EventQueueP();
+		EventListInfections = new ArrayList<>();
+		EventListHeals = new ArrayList<>();
+		EventListKills = new ArrayList<>();
+		EventListOthers = new ArrayList<>();
+		
 		city = new City();
 		
-		/// City Initialization
+		/*
+		 * City Initialization
+		 */
 		for (int i=0 ; i<Parameters.initialInhabitantsNumber ; i++) {
 			Inhabitant inhabitant = new Inhabitant(i);
 			city.addInhabitant(inhabitant);
 		}
 			
-		/// Disease Initialization
+		/*
+		 * Disease Initialization
+		 */
 		for (int i=0 ; i<Parameters.initialInfectedInhabitantsNumber ; i++) {
 			try {
-				city.randomlyInfectAnHealthyInhabitant();
+				SpreadEvent newInfectionEvent = new SpreadEvent();
+				this.register(newInfectionEvent);
 			} 
 			catch (Exception e) {
 				if (e == City.allInhabitantsHaveBeenInfected) { 
@@ -69,78 +95,11 @@ public class Engine implements GameEngine {
 	}
 	
 	@Override
-	public void update() {
-		/// Infected Inhabitants Detection
-		int contagiousInhabitantsNumber = city.getInfectedInhabitants() - city.getQuarantinedInhabitants();
-		if (contagiousInhabitantsNumber < 0) contagiousInhabitantsNumber = 0;
-		int detectedInfectedInhabitants = (int) ((int) contagiousInhabitantsNumber*Parameters.detectionEfficacity);
-		for (int i=0 ; i<detectedInfectedInhabitants ; i++) {
-			try {
-				city.randomlyPutInQuarantineAnInfectedInhabitant();
-			} 
-			catch (Exception e) {
-				if (e == City.noInfectedInhabitant) { 
-					System.out.format("Looks like you won!\n");
-				}
-				else {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		/// Heal Some Quarantined Inhabitants
-		int healedInhabitans = (int) ((int) city.getQuarantinedInhabitants()*(1-Parameters.mortalityRate));
-		for (int i=0 ; i<healedInhabitans ; i++) {
-			try {
-				city.randomlyHealAQuarantinedInhabitant();
-			} 
-			catch (Exception e) {
-				if (e == City.noInfectedInhabitantNotInQuarantined) { 
-					System.out.format("All Infected Inhabitants are in Quarantined!\n");
-				}
-				else {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		/// Death (Sometimes Happens)
-		int dyingInhabitantsNumber = (int) ((int) (city.getInfectedInhabitants()/2)*Parameters.mortalityRate + 1);
-		for (int i=0 ; i<dyingInhabitantsNumber ; i++) {
-			try {
-				city.randomlyKillAnInfectedInhabitant();
-			} 
-			catch (Exception e) {
-				if (e == City.noInfectedInhabitant) { 
-					System.out.format("Looks like you won!\n");
-				}
-				else {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		/// Exponential Growth
-		contagiousInhabitantsNumber = city.getInfectedInhabitants() - city.getQuarantinedInhabitants();
-
-		if (contagiousInhabitantsNumber > city.getHealthyInhabitants()) {
-			contagiousInhabitantsNumber = city.getHealthyInhabitants();
-		}
-		if (contagiousInhabitantsNumber < 0) contagiousInhabitantsNumber = 0;
-
-		for (int i=0 ; i<contagiousInhabitantsNumber ; i++) {
-			try {
-				city.randomlyInfectAnHealthyInhabitant();
-			} 
-			catch (Exception e) {
-				if (e == City.allInhabitantsHaveBeenInfected) { 
-					System.out.format("/!\\ All inhabitants are infected!\n");
-				}
-				else {
-					e.printStackTrace();
-				}
-			}
-		}
+	public void update() {		
+		SpreadEvent event1 = new SpreadEvent();
+		this.register(event1);
+		
+		this.updateQueue();
 	}
 
 	/**
@@ -156,5 +115,84 @@ public class Engine implements GameEngine {
 		System.out.format("Quarantined: \t%d\n", city.getQuarantinedInhabitants());
 		System.out.format("Died: \t\t%d\n",      city.getInhabitantsDead());
 		System.out.format("Emigrated: \t%d\n",   city.getInhabitantsEmigrated());
+	}
+
+	@Override
+	public void register(Event... event) {
+		for (Event eve : event) {
+			EventP newEventP;
+			if (eve.getClass() == SpreadEvent.class) {
+				newEventP = new EventP(city, SPREAD);
+				EventListInfections.add(EventListInfections.size(), newEventP);
+			}
+			else if (eve.getClass() == CureEvent.class) {
+				newEventP = new EventP(city, CURE);
+				EventListHeals.add(EventListHeals.size(), newEventP);
+			}
+			else if (eve.getClass() == DyingEvent.class) {
+				newEventP = new EventP(city, DYING);
+				EventListKills.add(EventListKills.size(), newEventP);
+			}
+			else {
+				newEventP = new EventP(city, FAKE);
+				EventListOthers.add(EventListOthers.size(), newEventP);
+			}
+			
+			Instant execInstant = (this.getCurrentInstant());
+			execInstant.plusSeconds(Parameters.globalRate*Parameters.infectionWaitDuration);
+			newEventP.setExecTime(execInstant);
+		}
+	}
+
+	@Override
+	public Instant getCurrentInstant() {
+		return this.clock.instant();
+	}
+	
+	public void updateQueue() {
+		ArrayList<EventP> trash = new ArrayList<>();
+		
+		for (EventP eve : this.EventListInfections) {
+			if (eve.getExecTime().compareTo(this.clock.instant()) < 0) {
+				eve.trigger();
+				trash.add(eve);
+				
+				DyingEvent newEventP = new DyingEvent();
+				this.register(newEventP);
+			}
+			else break;
+		}
+		
+		for (EventP eve : trash) {
+			this.EventListInfections.remove(eve);
+		}
+		
+		trash = new ArrayList<>();
+		
+		for (EventP eve : this.EventListHeals) {
+			if (eve.getExecTime().compareTo(this.clock.instant()) < 0) {
+				eve.trigger();
+				trash.add(eve);
+			}
+			else break;
+		}
+		
+		for (EventP eve : trash) {
+			this.EventListHeals.remove(eve);
+		}
+		
+		trash = new ArrayList<>();
+		
+		for (EventP eve : this.EventListKills) {
+			if (eve.getExecTime().compareTo(this.clock.instant()) < 0) {
+				eve.trigger();
+				trash.add(eve);
+			}
+			else break;
+		}
+		
+		for (EventP eve : trash) {
+			this.EventListKills.remove(eve);
+		}
 	}
 }
