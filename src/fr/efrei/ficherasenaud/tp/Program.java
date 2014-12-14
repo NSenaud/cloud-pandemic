@@ -12,8 +12,8 @@ import java.time.Clock;
  */
 public class Program {
 	public static void main(String[] arguments) {
-		/// Start Game.
 		Clock clock = Clock.systemDefaultZone();
+		
 		GameEngineAndQueueP game = new GameEngineAndQueueP();
 		game.createGameEngine(clock);
 	}

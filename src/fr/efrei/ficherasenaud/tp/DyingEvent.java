@@ -7,15 +7,21 @@ import fr.efrei.paumier.common.time.Event;
 public class DyingEvent implements Event {
 
 	private Duration duration;
+	private City city;
 	
 	public DyingEvent() {
 		duration = Parameters.killWaitDuration;
+		this.city = Parameters.city;
 	}
 	
 	@Override
 	public void trigger() {
-		// TODO Auto-generated method stub
-		
+		try {
+			city.kill(city.selectAmong(city.getInfectedInhabitantsArray()));
+		} catch (Exception e) {
+			System.out.println("Nobody is infected");
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -25,8 +31,6 @@ public class DyingEvent implements Event {
 
 	@Override
 	public double getRate() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Parameters.globalRate;
 	}
-
 }
