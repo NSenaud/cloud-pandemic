@@ -57,6 +57,7 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 					if (instant.compareTo(execInstant) >= 0) {
 						InstantList.add(index, execInstant);
 						EventList.add(index, eventToRegister);
+						break;
 					}
 					
 					index++;
