@@ -152,7 +152,7 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 			}
 			else {
 				Instant execInstant = (this.getCurrentInstant());
-				execInstant.plusSeconds(eve.getBaseDuration().getSeconds());
+				execInstant = execInstant.plusSeconds(eve.getBaseDuration().getSeconds());
 				
 				EventListOthers.put(eve, execInstant);
 			}
@@ -215,7 +215,7 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 		for (Event eve : this.EventListOthers.keySet()) {
 			Instant execInstant = this.EventListOthers.get(eve);
 			
-			if (execInstant.compareTo(this.clock.instant()) < 0) {
+			if (execInstant.compareTo(this.clock.instant()) <= 0) {
 				eve.trigger();
 				trash2.add(eve);
 			}
