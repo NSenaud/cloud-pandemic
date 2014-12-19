@@ -1,6 +1,7 @@
 package fr.efrei.ficherasenaud.tp;
 
 import java.time.Duration;
+import java.time.Instant;
 
 /**
  * @class Parameters
@@ -21,4 +22,6 @@ public class Parameters {
 	public static Duration spreadWaitDuration = Duration.ofSeconds((long) (1*globalRate));
 	public static Duration cureWaitDuration = Duration.ofSeconds((long) (1*globalRate));
 	public static Duration killWaitDuration = Duration.ofSeconds((long) (1*globalRate));
+	
+	public static Instant minimumInstant = Instant.MIN;
 }
