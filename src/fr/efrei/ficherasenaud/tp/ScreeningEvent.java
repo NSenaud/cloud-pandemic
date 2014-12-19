@@ -24,9 +24,10 @@ public class ScreeningEvent implements Event {
 	@Override
 	public void trigger() {
 		
-		if (inhabitant.isAlive()) {
+		if (inhabitant.isAlive() && inhabitant.getInfected() && !inhabitant.getQuarantined()) {
 			try {
 				city.putInQuarantine(this.inhabitant);
+				
 				CureEvent cureInhabitant = new CureEvent(this.inhabitant);
 				this.engine.register(cureInhabitant);
 			}

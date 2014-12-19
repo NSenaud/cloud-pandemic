@@ -18,11 +18,13 @@ public class DyingEvent implements Event {
 	
 	@Override
 	public void trigger() {
-		try {
-			city.kill(this.inhabitant);
-		} catch (Exception e) {
-			System.out.println("Nobody is infected");
-			e.printStackTrace();
+		if (inhabitant.isAlive() && inhabitant.getInfected()) {
+			try {
+				city.kill(this.inhabitant);
+			} catch (Exception e) {
+				System.out.println("Nobody is infected");
+				e.printStackTrace();
+			}
 		}
 	}
 

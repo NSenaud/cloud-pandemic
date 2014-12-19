@@ -18,11 +18,13 @@ public class CureEvent implements Event {
 
 	@Override
 	public void trigger() {
-		try {
-			city.heal(this.inhabitant);
-		} catch (Exception e) {
-			System.out.println("SELECTOR ERROR heal1");
-			e.printStackTrace();
+		if (inhabitant.isAlive() && inhabitant.getQuarantined() && inhabitant.getInfected()) {
+			try {
+				city.heal(this.inhabitant);
+			} catch (Exception e) {
+				System.out.println("SELECTOR ERROR heal1");
+				e.printStackTrace();
+			}
 		}
 	}
 
