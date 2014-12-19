@@ -23,16 +23,8 @@ public class GameEngineAndQueueP extends BaseGameEngineTests {
 		while (Parameters.city.getAliveInhabitants() > 0) {
 			engine.update();
 			
-			// TODO Dépistage
 			ScreeningEvent newScreeningEvent = new ScreeningEvent(engine);
 			engine.register(newScreeningEvent);
-			
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 	}
 }

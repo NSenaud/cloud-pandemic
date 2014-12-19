@@ -136,7 +136,15 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 				currentInstant = Clock.offset(clock, Duration.between(currentInstant, next)).instant();
 				System.out.println("OFFSET AFTR :" + clock.instant());
 				int indexToRemove = InstantList.indexOf(next);
-				EventList.get(indexToRemove).trigger();
+				
+				try {
+					EventList.get(indexToRemove).trigger();
+				}
+				catch (java.lang.ArrayIndexOutOfBoundsException e) {
+					System.out.println("No Event to Execute");
+					return;
+				}
+				
 				System.out.printf("Exec");
 				System.out.println(InstantList.get(indexToRemove));
 				EventList.remove(indexToRemove);
