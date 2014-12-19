@@ -76,7 +76,7 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 			Instant execInstant = this.clock.instant();
 			execInstant = execInstant.plusSeconds(eventToRegister.getBaseDuration().getSeconds());
 			
-
+			boolean didRegisterEvent = false;
 			if (InstantList.size() > 0) {
 				int index = 0;
 				for (Instant instant : InstantList) {
@@ -84,6 +84,7 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 						System.out.println("RegisterA" + execInstant);
 						InstantList.add(index, execInstant);
 						EventList.add(index, eventToRegister);
+						didRegisterEvent = true;
 						break;
 					}
 					
@@ -94,6 +95,14 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 				System.out.println("RegisterB" + execInstant);
 				InstantList.add(execInstant);
 				EventList.add(eventToRegister);
+				didRegisterEvent = true;
+			}
+			
+			if (!didRegisterEvent) {
+				System.out.println("RegisterC" + execInstant);
+				InstantList.add(execInstant);
+				EventList.add(eventToRegister);
+				didRegisterEvent = true;
 			}
 		}
 	}

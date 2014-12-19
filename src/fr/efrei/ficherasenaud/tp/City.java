@@ -96,9 +96,12 @@ public class City implements Selector<Inhabitant> {
 	 */
 	public void infect(Inhabitant inhabitantSource, Inhabitant inhabitantTarget) {
 		if (inhabitantSource.getInfected()) {
-			inhabitantTarget.setInfected(true);
-			this.infectedInhabitantsList.add(inhabitantTarget);
-			this.healthyInhabitantsList.remove(inhabitantTarget);
+			try {
+				this.infect(inhabitantTarget);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	

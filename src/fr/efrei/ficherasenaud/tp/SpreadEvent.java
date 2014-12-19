@@ -7,37 +7,57 @@ import fr.efrei.paumier.common.time.Event;
 public class SpreadEvent implements Event {
 	private Duration duration;
 	private City city;
-	private Inhabitant inhabitant;
+	private Inhabitant sourceInhabitant;
+	private Inhabitant targetInhabitant;
 	private Engine engine;
 	
 	public SpreadEvent(Engine engine) {
-		this.duration = Parameters.spreadWaitDuration;
-		this.city = Parameters.city;
-		this.inhabitant = city.selectAmong(city.getHealthyInhabitantsArray());
-		this.engine = engine;
-		
-		this.SpreadEventGenericConstructor();
+		this.GenericSpreadEventConstructor(engine);
 	}
 	
-	private void SpreadEventGenericConstructor() {
-		DyingEvent inhabitantWillDie = new DyingEvent(inhabitant);
-		engine.register(inhabitantWillDie);
+	public SpreadEvent(Engine engine, Inhabitant sourceInhabitant) {
+		this.sourceInhabitant = sourceInhabitant;
+		this.GenericSpreadEventConstructor(engine);
+		
+		DyingEvent sourceWillDie = new DyingEvent(sourceInhabitant);
+		this.engine.register(sourceWillDie);
+	}
+	
+	private void GenericSpreadEventConstructor(Engine engine) {
+		this.duration = Parameters.spreadWaitDuration;
+		this.city = Parameters.city;
+		this.engine = engine;
 	}
 	
 	@Override
 	public void trigger() {
-		
-		if (inhabitant.getInfected() && inhabitant.isAlive()) {
+		if (sourceInhabitant == null) {
+			this.targetInhabitant = city.selectAmong(city.getHealthyInhabitantsArray());
 			try {
-				city.infect(this.inhabitant);
+				city.infect(this.targetInhabitant);
 			}
 			catch (Exception e) {
 				System.out.println("SELECTOR ERROR infect 1");
 				e.printStackTrace();
 			}
 			
-			SpreadEvent newSpreadEvent = new SpreadEvent(this.engine);
+			SpreadEvent newSpreadEvent = new SpreadEvent(this.engine, targetInhabitant);
 			this.engine.register(newSpreadEvent);
+		}
+		else if (sourceInhabitant.getInfected() && sourceInhabitant.isAlive()) {
+			this.targetInhabitant = city.selectAmong(city.getHealthyInhabitantsArray());
+			try {
+				city.infect(this.sourceInhabitant, this.targetInhabitant);
+			}
+			catch (Exception e) {
+				System.out.println("SELECTOR ERROR infect 1");
+				e.printStackTrace();
+			}
+			
+			SpreadEvent newSpreadEvent = new SpreadEvent(this.engine, targetInhabitant);
+			this.engine.register(newSpreadEvent);
+			SpreadEvent otherSpreadEvent = new SpreadEvent(this.engine, sourceInhabitant);
+			this.engine.register(otherSpreadEvent);
 		}
 	}
 
