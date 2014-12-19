@@ -1,7 +1,6 @@
 package fr.efrei.ficherasenaud.tp;
 
 import java.time.Clock;
-
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -31,21 +30,8 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 	Clock clock;
 	Instant now;
 	
-	public Engine() {
-		EventList = new ArrayList<>();
-		InstantList = new ArrayList<>();
-		
-		city = new City();
-		Parameters.city = city;
-		
-		/*
-		 * City Initialization
-		 */
-		for (int i=0 ; i<Parameters.initialInhabitantsNumber ; i++) {
-			Inhabitant inhabitant = new Inhabitant(i);
-			city.addInhabitant(inhabitant);
-		}
-	}
+	Exception emptyInstantList;
+	
 	public Engine(Clock clock) {
 		EventList = new ArrayList<>();
 		InstantList = new ArrayList<>();
@@ -59,19 +45,18 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 		 * City Initialization
 		 */
 		for (int i=0 ; i<Parameters.initialInhabitantsNumber ; i++) {
-			Inhabitant inhabitant = new Inhabitant(i);
+			Inhabitant inhabitant = new Inhabitant();
 			city.addInhabitant(inhabitant);
 		}
 	}
 	
 	/* TODO */
 	/* TO DO : THROW EXCEPTION SUR CETTE FONCTION LORSQUE TAB EST VIDE OU NEXT > CLOCK */
-	public Instant getNextInstant(ArrayList<Instant> tab){
+	public Instant getNextInstant(ArrayList<Instant> tab) throws Exception{
 		if(tab.size() <= 0) {
-			Instant out = Parameters.minimumInstant;
-			System.out.println("GNI> TABLEAU D INSTANT VIDE");
-			return out;
+			throw (emptyInstantList);
 		}
+		
 		Instant min = tab.get(0);
 		System.out.println("GNI> MIN :" + min);
 			for (Instant exeInstant : tab) { // On prend le prochain plus proche
@@ -131,10 +116,18 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 		int youu = 0;
 		
 		// On cherche le prochain a executer
-		Instant next = getNextInstant(InstantList);
-				System.out.println("NEXT : " + next);
-		while(next.compareTo(currentInstant) <= 0 && next != Parameters.minimumInstant){
-			
+		Instant next = clock.instant();
+		try {
+			next = getNextInstant(InstantList);
+		}
+		catch (Exception e) {
+			if (e == emptyInstantList) {
+				System.out.println("GNI> TABLEAU D INSTANT VIDE");
+			}
+		}
+		
+		System.out.println("NEXT : " + next);
+		while (next.compareTo(currentInstant) <= 0) {
 			System.out.println(youu);
 			youu += 1;
 			
@@ -148,7 +141,16 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 				System.out.println(InstantList.get(indexToRemove));
 				EventList.remove(indexToRemove);
 				InstantList.remove(indexToRemove);	
-				next = getNextInstant(InstantList);
+				
+				try {
+					next = getNextInstant(InstantList);
+				}
+				catch (Exception e) {
+					if (e == emptyInstantList) {
+						System.out.println("GNI> TABLEAU D INSTANT VIDE");
+					}
+				}
+				
 				clock = clocksaved;
 				currentInstant = clock.instant();
 		}
@@ -157,5 +159,4 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 		System.out.println("CURR_END : "+ currentInstant + clock.instant());
 		
 	}
-
 }

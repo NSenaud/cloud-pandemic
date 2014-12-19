@@ -73,13 +73,15 @@ public class City implements Selector<Inhabitant> {
 	 * @param inhabitant An infected inhabitant
 	 */
 	public void die(Inhabitant inhabitant) {
-		if (inhabitant.getInfected()) {
+		if (inhabitant.getInfected() && inhabitant.isAlive()) {
 			this.infectedInhabitantsList.remove(inhabitant);
 			
 			if (inhabitant.getQuarantined())
 			{
 				this.quarantainedInhabitantsList.remove(inhabitant);
 			}
+			
+			inhabitant.isDead();
 		}
 		
 		this.inhabitantsList.remove(inhabitant);

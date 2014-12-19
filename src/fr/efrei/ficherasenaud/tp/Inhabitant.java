@@ -10,24 +10,17 @@ package fr.efrei.ficherasenaud.tp;
 public class Inhabitant {
 	private boolean infected;
 	private boolean quarantined;
-	private String name;
-	private int id;
+	private boolean alive;
 	
 	/**
 	 * 
 	 * @param name The inhabitant name, useful for UI and Debug, don't need to
 	 * be unique.
 	 */
-	public Inhabitant(String name) {
+	public Inhabitant() {
 		this.infected = false;
 		this.quarantined = false;
-		this.name = name;
-	}
-	
-	public Inhabitant(int id) {
-		this.infected = false;
-		this.quarantined = false;
-		this.id = id;
+		this.alive = true;
 	}
 	
 	/**
@@ -62,19 +55,11 @@ public class Inhabitant {
 		this.quarantined = quarantined; 
 	}
 	
-	/**
-	 * 
-	 * @return Inhabitant's name
-	 */
-	public String getName() {
-		return this.name;
+	public boolean isAlive() {
+		return this.alive;
 	}
 	
-	/**
-	 * 
-	 * @param name Inhabitant's name
-	 */
-	public void setName(String name) {
-		this.name = name;
+	public void isDead() {
+		this.alive = false;
 	}
 }

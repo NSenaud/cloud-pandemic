@@ -19,9 +19,7 @@ public class Parameters {
 	public static String turnUnit = "seconds";
 	
 	public static double globalRate = 1;
-	public static Duration spreadWaitDuration = Duration.ofSeconds((long) (1*globalRate));
-	public static Duration cureWaitDuration = Duration.ofSeconds((long) (1*globalRate));
-	public static Duration killWaitDuration = Duration.ofSeconds((long) (1*globalRate));
-	
-	public static Instant minimumInstant = Instant.MIN;
+	public static Duration spreadWaitDuration = Duration.ofSeconds((long) (5 *globalRate));
+	public static Duration cureWaitDuration =   Duration.ofSeconds((long) (10*globalRate));
+	public static Duration killWaitDuration =   Duration.ofSeconds((long) (15*globalRate));
 }

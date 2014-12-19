@@ -1,43 +1,39 @@
 package fr.efrei.ficherasenaud.tp;
 
 import java.time.Duration;
+import java.util.ArrayList;
 
 import fr.efrei.paumier.common.time.Event;
 
-public class SpreadEvent implements Event {
+public class ScreeningEvent implements Event {
 	private Duration duration;
 	private City city;
 	private Inhabitant inhabitant;
 	private Engine engine;
 	
-	public SpreadEvent(Engine engine) {
+	public ScreeningEvent(Engine engine) {
 		this.duration = Parameters.spreadWaitDuration;
 		this.city = Parameters.city;
-		this.inhabitant = city.selectAmong(city.getHealthyInhabitantsArray());
+		ArrayList<Inhabitant> temp_list = new ArrayList<>();
+		temp_list.addAll(city.getHealthyInhabitantsArray());
+		temp_list.addAll(city.getInfectedInhabitantsArray());
+		this.inhabitant = city.selectAmong(temp_list);
 		this.engine = engine;
-		
-		this.SpreadEventGenericConstructor();
-	}
-	
-	private void SpreadEventGenericConstructor() {
-		DyingEvent inhabitantWillDie = new DyingEvent(inhabitant);
-		engine.register(inhabitantWillDie);
 	}
 	
 	@Override
 	public void trigger() {
 		
-		if (inhabitant.getInfected() && inhabitant.isAlive()) {
+		if (inhabitant.isAlive()) {
 			try {
-				city.infect(this.inhabitant);
+				city.putInQuarantine(this.inhabitant);
+				CureEvent cureInhabitant = new CureEvent(this.inhabitant);
+				this.engine.register(cureInhabitant);
 			}
 			catch (Exception e) {
 				System.out.println("SELECTOR ERROR infect 1");
 				e.printStackTrace();
 			}
-			
-			SpreadEvent newSpreadEvent = new SpreadEvent(this.engine);
-			this.engine.register(newSpreadEvent);
 		}
 	}
 

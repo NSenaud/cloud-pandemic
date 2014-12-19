@@ -13,8 +13,10 @@ import java.time.Clock;
 public class Program {
 	public static void main(String[] arguments) {
 		Clock clock = Clock.systemDefaultZone();
+//		Clock clock = Clock.fixed(Instant.EPOCH, ZoneId.systemDefault());
 		
 		GameEngineAndQueueP game = new GameEngineAndQueueP();
 		game.createGameEngine(clock);
+		game.play();
 	}
 }

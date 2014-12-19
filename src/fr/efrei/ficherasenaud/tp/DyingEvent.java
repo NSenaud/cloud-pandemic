@@ -8,16 +8,18 @@ public class DyingEvent implements Event {
 
 	private Duration duration;
 	private City city;
+	private Inhabitant inhabitant;
 	
-	public DyingEvent() {
-		duration = Parameters.killWaitDuration;
+	public DyingEvent(Inhabitant inhabitant) {
+		this.duration = Parameters.killWaitDuration;
 		this.city = Parameters.city;
+		this.inhabitant = inhabitant;
 	}
 	
 	@Override
 	public void trigger() {
 		try {
-			city.kill(city.selectAmong(city.getInfectedInhabitantsArray()));
+			city.kill(this.inhabitant);
 		} catch (Exception e) {
 			System.out.println("Nobody is infected");
 			e.printStackTrace();
