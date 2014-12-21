@@ -50,7 +50,13 @@ public class SpreadEvent implements Event {
 			this.engine.register(newSpreadEvent);
 		}
 		else if (sourceInhabitant.getInfected() && sourceInhabitant.isAlive()) {
-			this.targetInhabitant = city.selectAmong(city.getHealthyInhabitantsArray());
+			try {
+				this.targetInhabitant = city.selectAmong(city.getHealthyInhabitantsArray());
+			}
+			catch (Exception e) {
+				System.out.println("Can not infect more inhabitants: everybody's infected or dead.");
+				return;
+			}
 			try {
 				city.infect(this.sourceInhabitant, this.targetInhabitant);
 			}
