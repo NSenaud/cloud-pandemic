@@ -3,12 +3,9 @@ package fr.efrei.ficherasenaud.tp;
 import java.time.Clock;
 
 /**
- * 
  * @class Program
  * 
- * Main program class: initialize City Class and Inhabitants Classes to add to 
- * City.
- *
+ * Main program class: create a Clock and game's main controller. Launch the game.
  */
 public class Program {
 	public static void main(String[] arguments) {

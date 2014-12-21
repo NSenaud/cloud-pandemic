@@ -12,7 +12,6 @@ import java.util.Random;
  *  A City contains inhabitants. "It" may kill infected inhabitants, put them
  *  in quarantine, and heal them if they are in quarantine.
  */
-
 public class City implements Selector<Inhabitant> {
 	private ArrayList<Inhabitant> inhabitantsList;
 	private ArrayList<Inhabitant> healthyInhabitantsList;

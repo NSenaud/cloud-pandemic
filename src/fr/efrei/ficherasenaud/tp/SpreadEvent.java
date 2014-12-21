@@ -4,6 +4,11 @@ import java.time.Duration;
 
 import fr.efrei.paumier.common.time.Event;
 
+/**
+ * @class SpreadEvent
+ * 
+ * An implementation of Event to have infected inhabitants infecting other inhabitants, and to initialize the infection. 
+ */
 public class SpreadEvent implements Event {
 	private Duration duration;
 	private City city;

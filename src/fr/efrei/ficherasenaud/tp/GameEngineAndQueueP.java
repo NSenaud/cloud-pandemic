@@ -5,6 +5,11 @@ import java.time.Clock;
 import fr.efrei.paumier.common.time.BaseGameEngineTests;
 import fr.efrei.paumier.common.time.GameEngineAndQueue;
 
+/**
+ * @class GameEngineAndQueueP
+ * 
+ * Initialize game engine and launch the game. Must be present to pass Unit Tests. 
+ */
 public class GameEngineAndQueueP extends BaseGameEngineTests {
 	private Engine engine;
 	
@@ -15,6 +20,9 @@ public class GameEngineAndQueueP extends BaseGameEngineTests {
 		return engine;
 	}
 	
+	/**
+	 * Launch the game.
+	 */
 	public void play() {
 		SpreadEvent initialInfection = new SpreadEvent(engine);
 		engine.register(initialInfection);

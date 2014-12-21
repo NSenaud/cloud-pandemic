@@ -4,6 +4,11 @@ import java.time.Duration;
 
 import fr.efrei.paumier.common.time.Event;
 
+/**
+ * @class DyingEvent
+ * 
+ * An implementation of Event to kill inhabitants.
+ */
 public class DyingEvent implements Event {
 
 	private Duration duration;

@@ -1,11 +1,9 @@
 package fr.efrei.ficherasenaud.tp;
 
 /**
- * 
  * @class Inhabitant
  * 
  * Inhabitant Class represent a single inhabitant of a City Class.
- *
  */
 public class Inhabitant {
 	private boolean infected;
@@ -55,10 +53,17 @@ public class Inhabitant {
 		this.quarantined = quarantined; 
 	}
 	
+	/**
+	 * 
+	 * @return true if inhabitant is still alive, false if he is dead.
+	 */
 	public boolean isAlive() {
 		return this.alive;
 	}
 	
+	/**
+	 * Report the inhabitant is dead.
+	 */
 	public void isDead() {
 		this.alive = false;
 	}

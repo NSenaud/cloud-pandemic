@@ -5,6 +5,11 @@ import java.util.ArrayList;
 
 import fr.efrei.paumier.common.time.Event;
 
+/**
+ * @class ScreeningEvent
+ * 
+ * An implementation of Event to find infected inhabitants.
+ */
 public class ScreeningEvent implements Event {
 	private Duration duration;
 	private City city;

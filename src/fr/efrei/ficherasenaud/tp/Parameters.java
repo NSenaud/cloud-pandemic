@@ -1,12 +1,11 @@
 package fr.efrei.ficherasenaud.tp;
 
 import java.time.Duration;
-import java.time.Instant;
 
 /**
  * @class Parameters
  *
- *
+ * Allow to share some information between classes.
  */
 public class Parameters {
 	public static City city;

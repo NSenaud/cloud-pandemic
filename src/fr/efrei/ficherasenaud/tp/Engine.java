@@ -13,7 +13,7 @@ import fr.efrei.paumier.common.time.GameEngineAndQueue;
 /**
  * @class Engine
  * 
- * 
+ * Control main game's interactions. 
  */
 public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 	private City city;
@@ -50,25 +50,31 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 		}
 	}
 	
-	/* TODO */
-	/* TO DO : THROW EXCEPTION SUR CETTE FONCTION LORSQUE TAB EST VIDE OU NEXT > CLOCK */
-	public Instant getNextInstant(ArrayList<Instant> tab) throws Exception{
+	/**
+	 * 
+	 * @param tab 			Event execution Instants array
+	 * @return				Next Event execution Instant
+	 * @throws Exception 	Empty array
+	 */
+	public Instant getNextInstant(ArrayList<Instant> tab) throws Exception {
 		if(tab.size() <= 0) {
 			throw (emptyInstantList);
 		}
-		
+
 		Instant min = tab.get(0);
 		System.out.println("GNI> MIN :" + min);
-			for (Instant exeInstant : tab) { // On prend le prochain plus proche
-				if (exeInstant.compareTo(min) < 0) {
-						min = exeInstant;
-						System.out.println("GNI> MIN2 :" + min);
-				}
-				else continue;
+		
+		for (Instant exeInstant : tab) {
+			if (exeInstant.compareTo(min) < 0) {
+				min = exeInstant;
+				System.out.println("GNI> MIN2 :" + min);
 			}
-			System.out.println("GNI> MIN3 :" + min);
-			return min;
+			else continue;
 		}
+		
+		System.out.println("GNI> MIN3 :" + min);
+		return min;
+	}
 
 	@Override
 	public void register(Event... event) {
@@ -119,13 +125,13 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 		
 		Clock clocksaved = clock;
 		
-		
-		// EXECUTE AND TRASH IN ORDER
-		
 		int youu = 0;
 		
-		// On cherche le prochain a executer
+		/*
+		 *  Look for the next Event to execute.
+		 */
 		Instant next = clock.instant();
+		
 		try {
 			next = getNextInstant(InstantList);
 		}
@@ -136,44 +142,44 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 		}
 		
 		System.out.println("NEXT : " + next);
+
 		while (next.compareTo(currentInstant) <= 0) {
 			System.out.println(youu);
 			youu += 1;
-			
+
 			System.out.println("OFFSET BEF4 :" + clock.instant());
-				clock = Clock.offset(clock, Duration.between(currentInstant, next));
-				currentInstant = Clock.offset(clock, Duration.between(currentInstant, next)).instant();
-				System.out.println("OFFSET AFTR :" + clock.instant());
-				int indexToRemove = InstantList.indexOf(next);
-				
-				try {
-					EventList.get(indexToRemove).trigger();
+			clock = Clock.offset(clock, Duration.between(currentInstant, next));
+			currentInstant = Clock.offset(clock, Duration.between(currentInstant, next)).instant();
+			System.out.println("OFFSET AFTR :" + clock.instant());
+			
+			int indexToRemove = InstantList.indexOf(next);
+
+			try {
+				EventList.get(indexToRemove).trigger();
+			}
+			catch (java.lang.ArrayIndexOutOfBoundsException e) {
+				System.out.println("No Event to Execute");
+				return;
+			}
+
+			System.out.printf("Exec");
+			System.out.println(InstantList.get(indexToRemove));
+			EventList.remove(indexToRemove);
+			InstantList.remove(indexToRemove);	
+
+			try {
+				next = getNextInstant(InstantList);
+			}
+			catch (Exception e) {
+				if (e == emptyInstantList) {
+					System.out.println("GNI> TABLEAU D INSTANT VIDE");
 				}
-				catch (java.lang.ArrayIndexOutOfBoundsException e) {
-					System.out.println("No Event to Execute");
-					return;
-				}
-				
-				System.out.printf("Exec");
-				System.out.println(InstantList.get(indexToRemove));
-				EventList.remove(indexToRemove);
-				InstantList.remove(indexToRemove);	
-				
-				try {
-					next = getNextInstant(InstantList);
-				}
-				catch (Exception e) {
-					if (e == emptyInstantList) {
-						System.out.println("GNI> TABLEAU D INSTANT VIDE");
-					}
-				}
-				
-				clock = clocksaved;
-				currentInstant = clock.instant();
+			}
+
+			clock = clocksaved;
+			currentInstant = clock.instant();
 		}
-		
 
 		System.out.println("CURR_END : "+ currentInstant + clock.instant());
-		
 	}
 }

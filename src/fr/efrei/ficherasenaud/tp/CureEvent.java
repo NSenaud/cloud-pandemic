@@ -4,6 +4,11 @@ import java.time.Duration;
 
 import fr.efrei.paumier.common.time.Event;
 
+/**
+ * @class CureEvent
+ * 
+ * An implementation of Event to cure inhabitants.
+ */
 public class CureEvent implements Event {
 	
 	private Duration duration;
