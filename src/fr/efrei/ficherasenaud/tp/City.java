@@ -21,6 +21,8 @@ public class City implements Selector<Inhabitant> {
 	private int inhabitantsDead = 0;
 	private int inhabitantsEmigrated = 0;
 	
+	private CityPanicManager panicManager;
+	
 	public static Exception inhabitantYetInfected;
 	public static Exception allInhabitantsHaveBeenInfected;
 	public static Exception noInfectedInhabitant;
@@ -72,6 +74,8 @@ public class City implements Selector<Inhabitant> {
 	 * @param inhabitant An infected inhabitant
 	 */
 	public void die(Inhabitant inhabitant) {
+		if(!inhabitant.getQuarantined()) panicManager.OneMoreDeath();
+		
 		if (inhabitant.getInfected() && inhabitant.isAlive()) {
 			this.infectedInhabitantsList.remove(inhabitant);
 			
@@ -79,6 +83,7 @@ public class City implements Selector<Inhabitant> {
 			{
 				this.quarantainedInhabitantsList.remove(inhabitant);
 			}
+			
 			
 			inhabitant.isDead();
 		}
@@ -163,6 +168,7 @@ public class City implements Selector<Inhabitant> {
 			this.infectedInhabitantsList.remove(inhabitant);
 			this.quarantainedInhabitantsList.remove(inhabitant);
 			this.healthyInhabitantsList.add(inhabitant);
+			panicManager.OneMoreCured();
 		}
 	}
 	
@@ -298,7 +304,15 @@ public class City implements Selector<Inhabitant> {
 	
 	/**
 	 * 
-	 * @return Alive inhabitants number
+	 * @return panic manager 
+	 */
+	public CityPanicManager getPanicManager() {
+		return this.panicManager;
+	}
+	
+	/**
+	 * 
+	 * @return Alive inhabitants array
 	 */
 	public ArrayList<Inhabitant> getAliveInhabitantsArray() {
 		return this.inhabitantsList;
@@ -306,7 +320,7 @@ public class City implements Selector<Inhabitant> {
 	
 	/**
 	 * 
-	 * @return Healthy inhabitants number
+	 * @return Healthy inhabitants array
 	 */
 	public ArrayList<Inhabitant> getHealthyInhabitantsArray() {
 		return this.healthyInhabitantsList;
@@ -314,7 +328,7 @@ public class City implements Selector<Inhabitant> {
 	
 	/**
 	 * 
-	 * @return Infected inhabitants number
+	 * @return Infected inhabitants array
 	 */
 	public ArrayList<Inhabitant> getInfectedInhabitantsArray() {
 		return this.infectedInhabitantsList;
@@ -322,7 +336,7 @@ public class City implements Selector<Inhabitant> {
 	
 	/**
 	 * 
-	 * @return Quarantined inhabitants number
+	 * @return Quarantined inhabitants array
 	 */
 	public ArrayList<Inhabitant> getQuarantinedInhabitantsArray() {
 		return this.quarantainedInhabitantsList;

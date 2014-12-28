@@ -27,6 +27,8 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 	public static int CURE = 2;
 	public static int FAKE = 3;
 	
+	public static boolean comments = false;
+	
 	Clock clock;
 	Instant now;
 	
@@ -62,17 +64,17 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 		}
 
 		Instant min = tab.get(0);
-		System.out.println("GNI> MIN :" + min);
+		if(comments) System.out.println("GoNextInstant> MIN1 :" + min);
 		
 		for (Instant exeInstant : tab) {
 			if (exeInstant.compareTo(min) < 0) {
 				min = exeInstant;
-				System.out.println("GNI> MIN2 :" + min);
+				if(comments) System.out.println("GoNextInstant> MIN2 :" + min);
 			}
 			else continue;
 		}
 		
-		System.out.println("GNI> MIN3 :" + min);
+		if(comments) System.out.println("MIN-FINAL :" + min);
 		return min;
 	}
 
@@ -87,7 +89,7 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 				int index = 0;
 				for (Instant instant : InstantList) {
 					if (instant.compareTo(execInstant) >= 0) {
-						System.out.println("RegisterA" + execInstant);
+						if(comments) System.out.println("RegisterA" + execInstant);
 						InstantList.add(index, execInstant);
 						EventList.add(index, eventToRegister);
 						didRegisterEvent = true;
@@ -98,14 +100,14 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 				}
 			}
 			else {
-				System.out.println("RegisterB" + execInstant);
+				if(comments) System.out.println("RegisterB" + execInstant);
 				InstantList.add(execInstant);
 				EventList.add(eventToRegister);
 				didRegisterEvent = true;
 			}
 			
 			if (!didRegisterEvent) {
-				System.out.println("RegisterC" + execInstant);
+				if(comments) System.out.println("RegisterC" + execInstant);
 				InstantList.add(execInstant);
 				EventList.add(eventToRegister);
 				didRegisterEvent = true;
@@ -121,7 +123,7 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 	@Override
 	public void update() {
 		currentInstant = this.getCurrentInstant();
-		System.out.println("CURR : "+ currentInstant);
+		if(comments) if(comments) System.out.println("CURR : "+ currentInstant);
 		
 		Clock clocksaved = clock;
 		
@@ -137,20 +139,20 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 		}
 		catch (Exception e) {
 			if (e == emptyInstantList) {
-				System.out.println("GNI> TABLEAU D INSTANT VIDE");
+				if(comments) System.out.println("GoNextInstant> TABLEAU D INSTANT VIDE");
 			}
 		}
 		
-		System.out.println("NEXT : " + next);
+		if(comments) System.out.println("NEXT : " + next);
 
 		while (next.compareTo(currentInstant) <= 0) {
 			System.out.println(youu);
 			youu += 1;
 
-			System.out.println("OFFSET BEF4 :" + clock.instant());
+			if(comments) System.out.println("OFFSET BEF4 :" + clock.instant());
 			clock = Clock.offset(clock, Duration.between(currentInstant, next));
 			currentInstant = Clock.offset(clock, Duration.between(currentInstant, next)).instant();
-			System.out.println("OFFSET AFTR :" + clock.instant());
+			if(comments) System.out.println("OFFSET AFTR :" + clock.instant());
 			
 			int indexToRemove = InstantList.indexOf(next);
 
@@ -162,8 +164,7 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 				return;
 			}
 
-			System.out.printf("Exec");
-			System.out.println(InstantList.get(indexToRemove));
+			if(comments) System.out.printf("Exec" + InstantList.get(indexToRemove));
 			EventList.remove(indexToRemove);
 			InstantList.remove(indexToRemove);	
 
@@ -172,7 +173,7 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 			}
 			catch (Exception e) {
 				if (e == emptyInstantList) {
-					System.out.println("GNI> TABLEAU D INSTANT VIDE");
+					if(comments) System.out.println("GoNextInstant> TABLEAU D INSTANT VIDE");
 				}
 			}
 
@@ -180,6 +181,6 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 			currentInstant = clock.instant();
 		}
 
-		System.out.println("CURR_END : "+ currentInstant + clock.instant());
+		if(comments) System.out.println("CURR_END : "+ currentInstant + clock.instant());
 	}
 }
