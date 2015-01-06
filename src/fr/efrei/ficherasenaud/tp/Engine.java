@@ -146,8 +146,7 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 		if(comments) System.out.println("NEXT : " + next);
 
 		while (next.compareTo(currentInstant) <= 0) {
-			System.out.println(youu);
-			youu += 1;
+			if(comments) System.out.println("updateLoop" + youu++);
 
 			if(comments) System.out.println("OFFSET BEF4 :" + clock.instant());
 			clock = Clock.offset(clock, Duration.between(currentInstant, next));
