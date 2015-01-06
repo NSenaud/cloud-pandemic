@@ -24,12 +24,12 @@ public class CityPanicManager {
 		this.checkPanic();
 	}
 	public void OneMoreCured(){
-		this.amountOfPanic -= 2.5;
+		this.amountOfPanic -= 2;
 		if(amountOfPanic < 0) amountOfPanic = 0;
 	}
 
 	private void checkPanic() {
-		if(amountOfPanic > city.getAliveInhabitants()); // Engine.register(new EmigrationEvent( .. )
+		//if(amountOfPanic > city.getAliveInhabitants()); // Engine.register(new EmigrationEvent( .. )
 		// TODO
 	};
 
