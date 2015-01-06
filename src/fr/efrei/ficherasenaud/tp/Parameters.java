@@ -18,7 +18,7 @@ public class Parameters {
 	
 	public static String turnUnit = "seconds";
 	
-	public static double globalRate = 0.2;
+	public static double globalRate = 1;
 	public static Duration immigrationWaitDuration = Duration.ofSeconds((long) (3 *globalRate));
 	public static Duration spreadWaitDuration = Duration.ofSeconds((long) (5 *globalRate));
 	public static Duration cureWaitDuration =   Duration.ofSeconds((long) (10*globalRate));

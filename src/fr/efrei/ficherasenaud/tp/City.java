@@ -35,8 +35,6 @@ public class City implements Selector<Inhabitant> {
 		healthyInhabitantsList = new ArrayList<Inhabitant>();
 		infectedInhabitantsList = new ArrayList<Inhabitant>();
 		quarantainedInhabitantsList = new ArrayList<Inhabitant>();
-		
-		panicManager = new CityPanicManager(this);
 	}
 	
 	/**
