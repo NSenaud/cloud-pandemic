@@ -13,5 +13,4 @@ public class ForeignCity implements CityBorder {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

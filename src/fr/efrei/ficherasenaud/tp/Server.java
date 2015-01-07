@@ -35,5 +35,4 @@ public class Server implements MessageChannelHost {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
