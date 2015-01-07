@@ -16,5 +16,4 @@ public class Available implements Selector<MessageChannel> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

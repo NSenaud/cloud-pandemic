@@ -35,5 +35,5 @@ public class CityPanicManager {
 			EmigrationEvent event = new EmigrationEvent(this.engine);
 			this.engine.register(event);
 		}
-	};
+	}
 }
