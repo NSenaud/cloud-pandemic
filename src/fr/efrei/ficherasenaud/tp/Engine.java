@@ -38,6 +38,8 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 		EventList = new ArrayList<>();
 		InstantList = new ArrayList<>();
 		
+		Parameters.engine = this;
+		
 		this.clock = clock;
 		
 		city = new City();
