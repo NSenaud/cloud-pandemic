@@ -30,7 +30,7 @@ public class CityPanicManager {
 	}
 
 	private void checkPanic() {
-		if (amountOfPanic > city.getAliveInhabitants()) { // Engine.register(new EmigrationEvent( .. )
+		if (Parameters.online && amountOfPanic > city.getAliveInhabitants()) { // Engine.register(new EmigrationEvent( .. )
 			EmigrationEvent event = new EmigrationEvent(this.engine);
 			this.engine.register(event);
 		}

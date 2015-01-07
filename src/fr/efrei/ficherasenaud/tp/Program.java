@@ -23,6 +23,12 @@ public class Program {
 		
 			Server server = new Server(port);
 			Parameters.server = server;
+			Parameters.online = true;
+			
+			console.close();
+		}
+		else {
+			Parameters.online = false;
 		}
 		
 		GameEngineAndQueueP game = new GameEngineAndQueueP();

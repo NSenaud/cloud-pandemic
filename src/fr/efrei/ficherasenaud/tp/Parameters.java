@@ -46,4 +46,5 @@ public class Parameters {
 	 * Network
 	 */
 	public static Server server;
+	public static boolean online; 
 }
