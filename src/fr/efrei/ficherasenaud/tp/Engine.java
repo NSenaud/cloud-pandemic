@@ -38,6 +38,8 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 		EventList = new ArrayList<>();
 		InstantList = new ArrayList<>();
 		
+		Parameters.engine = this;
+		
 		this.clock = clock;
 		
 		city = new City();
@@ -123,7 +125,7 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 	@Override
 	public void update() {
 		currentInstant = this.getCurrentInstant();
-		if(comments) System.out.println("CURR : "+ currentInstant);
+		if(comments) if(comments) System.out.println("CURR : "+ currentInstant);
 		
 		Clock clocksaved = clock;
 		
@@ -146,9 +148,9 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 		if(comments) System.out.println("NEXT : " + next);
 
 		while (next.compareTo(currentInstant) <= 0) {
-			if(comments) System.out.println(youu++);
+			System.out.println(youu);
+			youu += 1;
 
-			
 			if(comments) System.out.println("OFFSET BEF4 :" + clock.instant());
 			clock = Clock.offset(clock, Duration.between(currentInstant, next));
 			currentInstant = Clock.offset(clock, Duration.between(currentInstant, next)).instant();

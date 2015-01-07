@@ -35,6 +35,7 @@ public class City implements Selector<Inhabitant> {
 		healthyInhabitantsList = new ArrayList<Inhabitant>();
 		infectedInhabitantsList = new ArrayList<Inhabitant>();
 		quarantainedInhabitantsList = new ArrayList<Inhabitant>();
+		panicManager = new CityPanicManager(this, Parameters.engine);
 	}
 	
 	/**
@@ -74,7 +75,7 @@ public class City implements Selector<Inhabitant> {
 	 * @param inhabitant An infected inhabitant
 	 */
 	public void die(Inhabitant inhabitant) {
-		if(!inhabitant.getQuarantined()) /*panicManager.OneMoreDeath()*/;
+		if(!inhabitant.getQuarantined()) panicManager.OneMoreDeath();
 		
 		if (inhabitant.getInfected() && inhabitant.isAlive()) {
 			this.infectedInhabitantsList.remove(inhabitant);
@@ -168,7 +169,7 @@ public class City implements Selector<Inhabitant> {
 			this.infectedInhabitantsList.remove(inhabitant);
 			this.quarantainedInhabitantsList.remove(inhabitant);
 			this.healthyInhabitantsList.add(inhabitant);
-			//panicManager.OneMoreCured();
+			panicManager.OneMoreCured();
 		}
 	}
 	

@@ -1,7 +1,5 @@
 package fr.efrei.ficherasenaud.tp;
 
-import java.time.Duration;
-
 import fr.efrei.paumier.common.core.CityBorder;
 
 public class EmigrationManager implements CityBorder {

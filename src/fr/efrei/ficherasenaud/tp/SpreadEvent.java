@@ -54,7 +54,7 @@ public class SpreadEvent implements Event {
 				this.targetInhabitant = city.selectAmong(city.getHealthyInhabitantsArray());
 			}
 			catch (Exception e) {
-				//System.out.println("Can not infect more inhabitants: everybody's infected or dead.");
+				System.out.println("Can not infect more inhabitants: everybody's infected or dead.");
 				return;
 			}
 			try {
