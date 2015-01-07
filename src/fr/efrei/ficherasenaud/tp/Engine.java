@@ -127,8 +127,6 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 		
 		Clock clocksaved = clock;
 		
-		int youu = 0;
-		
 		/*
 		 *  Look for the next Event to execute.
 		 */
@@ -146,8 +144,6 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 		if(comments) System.out.println("NEXT : " + next);
 
 		while (next.compareTo(currentInstant) <= 0) {
-			if(comments) System.out.println(youu++);
-
 			if(comments) System.out.println("OFFSET BEF4 :" + clock.instant());
 			clock = Clock.offset(clock, Duration.between(currentInstant, next));
 			currentInstant = Clock.offset(clock, Duration.between(currentInstant, next)).instant();
