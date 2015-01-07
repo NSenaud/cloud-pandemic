@@ -5,7 +5,6 @@ package fr.efrei.ficherasenaud.tp;
 
 import java.time.Duration;
 
-import fr.efrei.paumier.common.networking.BaseRemoteCityBorder;
 import fr.efrei.paumier.common.time.Event;
 
 /**
@@ -52,5 +51,4 @@ public class ImmigrateEvent implements Event {
 	public double getRate() {
 		return Parameters.globalRate;
 	}
-
 }
