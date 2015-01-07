@@ -9,6 +9,11 @@ import java.time.Duration;
  */
 public class Parameters {
 	/**
+	 * Engine 
+	 */
+	public static Engine engine;
+	
+	/**
 	 * City Parameters
 	 */
 	public static City city;
