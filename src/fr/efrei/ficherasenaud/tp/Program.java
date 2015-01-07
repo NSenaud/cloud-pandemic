@@ -11,6 +11,9 @@ public class Program {
 	public static void main(String[] arguments) {
 		Clock clock = Clock.systemDefaultZone();
 		
+		Server server = new Server();
+		Parameters.server = server;
+		
 		GameEngineAndQueueP game = new GameEngineAndQueueP();
 		game.createGameEngine(clock);
 		game.play();
