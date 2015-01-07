@@ -23,4 +23,9 @@ public class Parameters {
 	public static Duration spreadWaitDuration = 	 Duration.ofSeconds((long) (5 *globalRate));
 	public static Duration cureWaitDuration =   	 Duration.ofSeconds((long) (10*globalRate));
 	public static Duration killWaitDuration =   	 Duration.ofSeconds((long) (15*globalRate));
+	
+	/**
+	 * Network
+	 */
+	public static Server server;
 }

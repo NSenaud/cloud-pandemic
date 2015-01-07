@@ -9,10 +9,12 @@ public class CityPanicManager {
 	
 	private int amountOfPanic;
 	private City city;
+	private Engine engine;
 
-	public CityPanicManager(City city) {
+	public CityPanicManager(City city, Engine engine) {
 		this.amountOfPanic = 0;
 		this.city = city;
+		this.engine = engine;
 	}
 	
 	public int getPanic() {
@@ -29,8 +31,9 @@ public class CityPanicManager {
 	}
 
 	private void checkPanic() {
-		if(amountOfPanic > city.getAliveInhabitants()) { // Engine.register(new EmigrationEvent( .. )
-			
+		if (amountOfPanic > city.getAliveInhabitants()) { // Engine.register(new EmigrationEvent( .. )
+			EmigrationEvent event = new EmigrationEvent(this.engine);
+			this.engine.register(event);
 		}
 	};
 }

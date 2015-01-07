@@ -1,10 +1,9 @@
 package fr.efrei.ficherasenaud.tp;
 
 import java.time.Duration;
+import java.util.ArrayList;
 
-import fr.efrei.paumier.common.core.CityBorder;
 import fr.efrei.paumier.common.networking.BaseRemoteCityBorder;
-import fr.efrei.paumier.common.networking.MessageChannel;
 import fr.efrei.paumier.common.time.Event;
 
 public class EmigrationEvent implements Event {
@@ -23,7 +22,7 @@ public class EmigrationEvent implements Event {
 		this.sourceCity = Parameters.city;
 		this.targetCity = new ForeignCity();
 		
-		this.host = new Server();
+		this.host = Parameters.server;
 		this.engine = engine;
 		this.available = new Available();
 		this.remote = new Remote(host, engine, available);
@@ -31,19 +30,20 @@ public class EmigrationEvent implements Event {
 
 	@Override
 	public void trigger() {
-		// TODO Auto-generated method stub
-
+		/// Select Inhabitant
+		ArrayList<Inhabitant> immigrationCandidats = new ArrayList<>();
+		immigrationCandidats.addAll(this.sourceCity.getAliveInhabitantsArray());
+		immigrationCandidats.removeAll(this.sourceCity.getQuarantinedInhabitantsArray());
+		this.inhabitant = this.sourceCity.selectAmong(immigrationCandidats);
 	}
 
 	@Override
 	public Duration getBaseDuration() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.duration;
 	}
 
 	@Override
 	public double getRate() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Parameters.globalRate;
 	}
 }
