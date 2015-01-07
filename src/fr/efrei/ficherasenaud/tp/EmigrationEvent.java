@@ -16,7 +16,7 @@ public class EmigrationEvent implements Event {
 	private Inhabitant inhabitant;
 
 	public EmigrationEvent(Engine engine) {
-		this.duration = Parameters.immigrationWaitDuration;
+		this.duration = Parameters.emigrationWaitDuration;
 		this.sourceCity = Parameters.city;
 		
 		this.host = Parameters.server;
