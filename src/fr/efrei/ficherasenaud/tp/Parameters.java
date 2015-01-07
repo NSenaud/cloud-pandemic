@@ -20,7 +20,7 @@ public class Parameters {
 	
 	public static double globalRate = 1;
 	public static Duration immigrationWaitDuration = Duration.ofSeconds((long) (3 *globalRate));
-	public static Duration spreadWaitDuration = Duration.ofSeconds((long) (5 *globalRate));
-	public static Duration cureWaitDuration =   Duration.ofSeconds((long) (10*globalRate));
-	public static Duration killWaitDuration =   Duration.ofSeconds((long) (15*globalRate));
+	public static Duration spreadWaitDuration = 	 Duration.ofSeconds((long) (5 *globalRate));
+	public static Duration cureWaitDuration =   	 Duration.ofSeconds((long) (10*globalRate));
+	public static Duration killWaitDuration =   	 Duration.ofSeconds((long) (15*globalRate));
 }

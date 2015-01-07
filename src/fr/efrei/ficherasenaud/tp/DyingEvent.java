@@ -10,7 +10,6 @@ import fr.efrei.paumier.common.time.Event;
  * An implementation of Event to kill inhabitants.
  */
 public class DyingEvent implements Event {
-
 	private Duration duration;
 	private City city;
 	private Inhabitant inhabitant;
