@@ -6,7 +6,6 @@ package fr.efrei.ficherasenaud.tp;
  * A city panic manager, immigration + emigration
  */
 public class CityPanicManager {
-	
 	private int amountOfPanic;
 	private City city;
 	private Engine engine;

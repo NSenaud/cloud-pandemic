@@ -11,7 +11,7 @@ import fr.efrei.paumier.common.time.Event;
  * @author g07c
  *
  */
-public class ImmigrateEvent implements Event {
+public class ImmigrationEvent implements Event {
 	private Duration duration;
 	private City targetCity;
 	
@@ -20,7 +20,7 @@ public class ImmigrateEvent implements Event {
 	/**
 	 * 
 	 */
-	public ImmigrateEvent(boolean isInfected) {
+	public ImmigrationEvent(boolean isInfected) {
 		this.targetCity = Parameters.city;
 		this.duration = Parameters.immigrationWaitDuration;
 		
