@@ -127,8 +127,8 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 		
 		Clock clocksaved = clock;
 		
-		/*
-		 *  Look for the next Event to execute.
+		/**
+		 *  Look for a following Event to execute.
 		 */
 		Instant next = clock.instant();
 		
