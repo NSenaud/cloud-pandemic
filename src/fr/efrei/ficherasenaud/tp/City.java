@@ -88,7 +88,6 @@ public class City implements Selector<Inhabitant> {
 				this.quarantainedInhabitantsList.remove(inhabitant);
 			}
 			
-			
 			inhabitant.isDead();
 		}
 		

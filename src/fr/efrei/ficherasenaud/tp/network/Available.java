@@ -1,6 +1,7 @@
 package fr.efrei.ficherasenaud.tp.network;
 
 import java.util.List;
+import java.util.Random;
 
 import fr.efrei.paumier.common.selection.Selector;
 import fr.efrei.paumier.common.networking.MessageChannel;
@@ -13,6 +14,9 @@ public class Available implements Selector<MessageChannel> {
 
 	@Override
 	public MessageChannel selectAmong(List<MessageChannel> choices) {
-		return choices.get(0);
+		Random rand = new Random();
+		int index = rand.nextInt(choices.size());
+		
+		return choices.get(index);
 	}
 }
