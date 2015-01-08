@@ -42,6 +42,7 @@ public class SpreadEvent implements Event {
 	public void trigger() {
 		if (sourceInhabitant == null) {
 			this.targetInhabitant = city.selectAmong(city.getHealthyInhabitantsArray());
+			
 			try {
 				city.infect(this.targetInhabitant);
 			}

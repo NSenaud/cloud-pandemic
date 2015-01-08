@@ -14,9 +14,14 @@ public class Available implements Selector<MessageChannel> {
 
 	@Override
 	public MessageChannel selectAmong(List<MessageChannel> choices) {
-		Random rand = new Random();
-		int index = rand.nextInt(choices.size());
-		
-		return choices.get(index);
+		if (choices.size() > 0) {
+			Random rand = new Random();
+			int index = rand.nextInt(choices.size());
+			
+			return choices.get(index);
+		}
+		else {
+			return null;
+		}
 	}
 }

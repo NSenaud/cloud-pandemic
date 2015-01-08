@@ -28,7 +28,11 @@ public class EmigrationEvent implements Event {
 		ArrayList<Inhabitant> immigrationCandidats = new ArrayList<>();
 		immigrationCandidats.addAll(this.sourceCity.getAliveInhabitantsArray());
 		immigrationCandidats.removeAll(this.sourceCity.getQuarantinedInhabitantsArray());
-		this.inhabitant = this.sourceCity.selectAmong(immigrationCandidats);
+		if (immigrationCandidats.size() > 0) {
+			this.inhabitant = this.sourceCity.selectAmong(immigrationCandidats);
+			assert(this.inhabitant.isAlive());
+		}
+		else return;
 		
 		/**
 		 * Launch emigration.
@@ -36,11 +40,18 @@ public class EmigrationEvent implements Event {
 		boolean success = Parameters.remote.trySendingEmigrant(this.inhabitant.getInfected());
 		
 		if (success == true) {
-			System.out.println("Emigrant sent");
+			if (Parameters.comments) System.out.println("Emigrant sent");
 			sourceCity.incrementEmigrant();
+			
+			if (this.inhabitant.getInfected()) {
+				sourceCity.getInfectedInhabitantsArray().remove(this.inhabitant);
+			}
+				
+			this.inhabitant.isDead();
+			sourceCity.getAliveInhabitantsArray().remove(this.inhabitant);
 		}
 		else {
-			System.out.println("Failed to send emigrant");
+			if (Parameters.comments) System.out.println("Failed to send emigrant");
 		}
 	}
 

@@ -83,8 +83,7 @@ public class City implements Selector<Inhabitant> {
 		if (inhabitant.getInfected() && inhabitant.isAlive()) {
 			this.infectedInhabitantsList.remove(inhabitant);
 			
-			if (inhabitant.getQuarantined())
-			{
+			if (inhabitant.getQuarantined()) {
 				this.quarantainedInhabitantsList.remove(inhabitant);
 			}
 			
@@ -171,7 +170,7 @@ public class City implements Selector<Inhabitant> {
 			this.infectedInhabitantsList.remove(inhabitant);
 			this.quarantainedInhabitantsList.remove(inhabitant);
 			this.healthyInhabitantsList.add(inhabitant);
-//			panicManager.OneMoreCured();
+			panicManager.OneMoreCured();
 		}
 	}
 	

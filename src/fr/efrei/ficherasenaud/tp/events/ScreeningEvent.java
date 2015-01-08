@@ -23,15 +23,15 @@ public class ScreeningEvent implements Event {
 	public ScreeningEvent(Engine engine) {
 		this.duration = Parameters.spreadWaitDuration;
 		this.city = Parameters.city;
-		ArrayList<Inhabitant> temp_list = new ArrayList<>();
-		temp_list.addAll(city.getHealthyInhabitantsArray());
-		temp_list.addAll(city.getInfectedInhabitantsArray());
-		this.inhabitant = city.selectAmong(temp_list);
 		this.engine = engine;
 	}
 	
 	@Override
 	public void trigger() {
+		ArrayList<Inhabitant> temp_list = new ArrayList<>();
+		temp_list.addAll(city.getHealthyInhabitantsArray());
+		temp_list.addAll(city.getInfectedInhabitantsArray());
+		this.inhabitant = city.selectAmong(temp_list);
 		
 		if (inhabitant.isAlive() && inhabitant.getInfected() && !inhabitant.getQuarantined()) {
 			try {

@@ -25,13 +25,19 @@ public class DyingEvent implements Event {
 	
 	@Override
 	public void trigger() {
-		if (inhabitant.isAlive() && inhabitant.getInfected()) {
+		if (inhabitant.isAlive() && inhabitant.getInfected()
+				&& city.getAliveInhabitantsArray().contains(this.inhabitant)
+				&& city.getInfectedInhabitantsArray().contains(this.inhabitant)) {
 			try {
 				city.kill(this.inhabitant);
 			} catch (Exception e) {
-				System.out.println("Nobody is infected");
+				if(Parameters.comments) System.out.println("Nobody is infected");
 				e.printStackTrace();
 			}
+		}
+		else {
+			assert inhabitant.isAlive() == city.getAliveInhabitantsArray().contains(this.inhabitant) : "Fuck";
+			assert inhabitant.getInfected() == city.getInfectedInhabitantsArray().contains(this.inhabitant) : "Fuck";
 		}
 	}
 

@@ -63,6 +63,9 @@ public class GameEngineAndQueueP extends BaseGameEngineTests {
 		System.out.format("Died: \t\t%d\n",      city.getInhabitantsDead());
 		System.out.format("Emigrated: \t%d\n",   city.getInhabitantsEmigrated());
 		System.out.format("Immigrated: \t%d\n",  city.getInhabitantsImmigrated());
-		System.out.format("Panic: \t\t%s\n",   city.getPanic());
+		System.out.format("Panic: \t\t%s\n",     city.getPanic());
+		System.out.println("==================== Debug ====================");
+		System.out.format("Inhabitants:\t%d\n",	 city.getAliveInhabitants() + city.getInhabitantsDead() + city.getInhabitantsEmigrated());
+		System.out.format("Healthy+Infected-Alive: %d\n", city.getHealthyInhabitants()+city.getInfectedInhabitants()-city.getAliveInhabitants());
 	}
 }

@@ -26,7 +26,10 @@ public class CureEvent implements Event {
 
 	@Override
 	public void trigger() {
-		if (inhabitant.isAlive() && inhabitant.getQuarantined() && inhabitant.getInfected()) {
+		if (inhabitant.isAlive() && inhabitant.getQuarantined() && inhabitant.getInfected()
+				&& city.getAliveInhabitantsArray().contains(this.inhabitant)
+				&& city.getQuarantinedInhabitantsArray().contains(this.inhabitant)
+				&& city.getInfectedInhabitantsArray().contains(this.inhabitant)) {
 			try {
 				city.heal(this.inhabitant);
 			} catch (Exception e) {
