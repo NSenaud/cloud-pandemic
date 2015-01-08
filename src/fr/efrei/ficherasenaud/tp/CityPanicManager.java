@@ -1,5 +1,7 @@
 package fr.efrei.ficherasenaud.tp;
 
+import fr.efrei.ficherasenaud.tp.events.EmigrationEvent;
+
 /**
  * @class CityPanicManager
  * 

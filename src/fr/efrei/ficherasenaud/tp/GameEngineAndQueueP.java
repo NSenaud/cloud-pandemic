@@ -2,6 +2,8 @@ package fr.efrei.ficherasenaud.tp;
 
 import java.time.Clock;
 
+import fr.efrei.ficherasenaud.tp.events.ScreeningEvent;
+import fr.efrei.ficherasenaud.tp.events.SpreadEvent;
 import fr.efrei.paumier.common.time.BaseGameEngineTests;
 import fr.efrei.paumier.common.time.GameEngineAndQueue;
 

@@ -3,6 +3,8 @@ package fr.efrei.ficherasenaud.tp;
 import java.time.Clock;
 import java.util.Scanner;
 
+import fr.efrei.ficherasenaud.tp.network.Server;
+
 /**
  * @class Program
  * 

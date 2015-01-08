@@ -2,6 +2,8 @@ package fr.efrei.ficherasenaud.tp;
 
 import java.time.Duration;
 
+import fr.efrei.ficherasenaud.tp.network.Server;
+
 /**
  * @class Parameters
  *
