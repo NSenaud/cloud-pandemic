@@ -11,9 +11,10 @@ public class Server {
 	private Available available;
 	private Remote remote;
 
-	public Server(int port) {
+	public Server(String IP, int port) {
 		try {
 			this.multipointServer = new MultipointMessageNode(port);
+			this.multipointServer.addRemoteNode(IP, port);
 			
 			this.available = new Available();
 			this.remote = new Remote(this.multipointServer, Parameters.engine, available);

@@ -18,12 +18,13 @@ public class Program {
 		
 		System.out.println("Do you want to play on LAN? [Y/n]");
 		if (console.nextLine().contains("Y")) {
-//			System.out.println("IP?");
-		
+			System.out.println("IP?");
+			String IP = console.nextLine();
+			
 			System.out.println("Port?");
 			int port = Integer.parseInt(console.nextLine());
 		
-			Server server = new Server(port);
+			Server server = new Server(IP, port);
 			Parameters.server = server;
 			Parameters.online = true;
 			
