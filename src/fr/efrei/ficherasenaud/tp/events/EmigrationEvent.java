@@ -7,13 +7,11 @@ import fr.efrei.ficherasenaud.tp.City;
 import fr.efrei.ficherasenaud.tp.Engine;
 import fr.efrei.ficherasenaud.tp.Inhabitant;
 import fr.efrei.ficherasenaud.tp.Parameters;
-import fr.efrei.paumier.common.networking.BaseRemoteCityBorder;
 import fr.efrei.paumier.common.time.Event;
 
 public class EmigrationEvent implements Event {
 	private Duration duration;
 	private City sourceCity;
-	private BaseRemoteCityBorder remote;
 	
 	private Inhabitant inhabitant;
 
@@ -35,7 +33,7 @@ public class EmigrationEvent implements Event {
 		/**
 		 * Launch emigration.
 		 */
-		boolean success = this.remote.trySendingEmigrant(this.inhabitant.getInfected());
+		boolean success = Parameters.remote.trySendingEmigrant(this.inhabitant.getInfected());
 		
 		if (success == true) {
 			System.out.println("Emigrant sent");

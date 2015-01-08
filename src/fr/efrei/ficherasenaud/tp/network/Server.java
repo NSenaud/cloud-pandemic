@@ -18,6 +18,7 @@ public class Server {
 			
 			this.available = new Available();
 			this.remote = new Remote(this.multipointServer, Parameters.engine, available);
+			Parameters.remote = this.remote;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

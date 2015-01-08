@@ -2,6 +2,7 @@ package fr.efrei.ficherasenaud.tp;
 
 import java.time.Duration;
 
+import fr.efrei.ficherasenaud.tp.network.Remote;
 import fr.efrei.ficherasenaud.tp.network.Server;
 
 /**
@@ -49,4 +50,5 @@ public class Parameters {
 	 */
 	public static Server server;
 	public static boolean online; 
+	public static Remote remote;
 }
