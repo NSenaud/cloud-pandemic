@@ -7,18 +7,13 @@ import fr.efrei.paumier.common.selection.Selector;
 import fr.efrei.paumier.common.time.EventQueue;
 
 public class Remote extends BaseRemoteCityBorder {
-	private City city;
-	
 	public Remote(MessageChannelHost host, EventQueue queue, Selector<MessageChannel> selector) {
 		super(host, queue, selector);
-		
-		this.city = Parameters.city;
 	}
 
 	@Override
 	protected void receiveImmigrantFrom(MessageChannel sender, MigrationMessage immigrantMessage) {
-		Inhabitant emigrant = new Inhabitant();
-		emigrant.setInfected(immigrantMessage.isInfected());
-		this.city.addInhabitant(emigrant);
+		ImmigrationEvent event = new ImmigrationEvent(immigrantMessage.isInfected());
+		Parameters.engine.register(event);
 	}
 }
