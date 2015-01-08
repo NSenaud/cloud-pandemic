@@ -35,6 +35,11 @@ public class CityPanicManager {
 		if (Parameters.online && amountOfPanic > city.getAliveInhabitants()) { // Engine.register(new EmigrationEvent( .. )
 			EmigrationEvent event = new EmigrationEvent(this.engine);
 			this.engine.register(event);
+			
+			city.setPanic(true);
+		}
+		else {
+			city.setPanic(false);
 		}
 	}
 }

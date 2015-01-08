@@ -23,6 +23,7 @@ public class City implements Selector<Inhabitant> {
 	private int inhabitantsImmigrants = 0;
 	
 	private CityPanicManager panicManager;
+	private boolean panic;
 	
 	public static Exception inhabitantYetInfected;
 	public static Exception allInhabitantsHaveBeenInfected;
@@ -37,6 +38,7 @@ public class City implements Selector<Inhabitant> {
 		infectedInhabitantsList = new ArrayList<Inhabitant>();
 		quarantainedInhabitantsList = new ArrayList<Inhabitant>();
 		panicManager = new CityPanicManager(this, Parameters.engine);
+		this.panic = false;
 	}
 	
 	/**
@@ -76,7 +78,7 @@ public class City implements Selector<Inhabitant> {
 	 * @param inhabitant An infected inhabitant
 	 */
 	public void die(Inhabitant inhabitant) {
-//		if(!inhabitant.getQuarantined()) panicManager.OneMoreDeath();
+		if(!inhabitant.getQuarantined()) panicManager.OneMoreDeath();
 		
 		if (inhabitant.getInfected() && inhabitant.isAlive()) {
 			this.infectedInhabitantsList.remove(inhabitant);
@@ -241,6 +243,10 @@ public class City implements Selector<Inhabitant> {
 		this.inhabitantsImmigrants++;
 	}
 	
+	public void setPanic(boolean panic) {
+		this.panic = panic;
+	}
+	
 	/**************************************************************************
 	 * Display Stats
 	 *************************************************************************/
@@ -295,10 +301,14 @@ public class City implements Selector<Inhabitant> {
 	
 	/**
 	 * 
-	 * @return Emigrated inhabitants number
+	 * @return Immigrated inhabitants number
 	 */
 	public int getInhabitantsImmigrated() {
 		return inhabitantsImmigrants;
+	}
+	
+	public boolean getPanic() {
+		return this.panic;
 	}
 	
 	/**************************************************************************

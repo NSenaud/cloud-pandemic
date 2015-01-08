@@ -13,7 +13,6 @@ public class Available implements Selector<MessageChannel> {
 
 	@Override
 	public MessageChannel selectAmong(List<MessageChannel> choices) {
-		// TODO Auto-generated method stub
-		return null;
+		return choices.get(0);
 	}
 }
