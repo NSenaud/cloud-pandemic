@@ -21,7 +21,7 @@ public class Parameters {
 	public static City city;
 	public static int initialInhabitantsNumber = 10000;
 	public static int initialInfectedInhabitantsNumber = 20;
-	public static boolean comments = true;
+	public static boolean comments = false;
 	
 	/**
 	 * Game Difficulty

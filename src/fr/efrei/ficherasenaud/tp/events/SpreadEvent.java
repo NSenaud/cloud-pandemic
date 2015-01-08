@@ -46,7 +46,7 @@ public class SpreadEvent implements Event {
 				city.infect(this.targetInhabitant);
 			}
 			catch (Exception e) {
-				System.out.println("SELECTOR ERROR infect 1");
+				if(Parameters.comments) System.out.println("SELECTOR ERROR infect 1");
 				e.printStackTrace();
 			}
 			
@@ -58,14 +58,14 @@ public class SpreadEvent implements Event {
 				this.targetInhabitant = city.selectAmong(city.getHealthyInhabitantsArray());
 			}
 			catch (Exception e) {
-				System.out.println("Can not infect more inhabitants: everybody's infected or dead.");
+				if(Parameters.comments) System.out.println("Can not infect more inhabitants: everybody's infected or dead.");
 				return;
 			}
 			try {
 				city.infect(this.sourceInhabitant, this.targetInhabitant);
 			}
 			catch (Exception e) {
-				System.out.println("SELECTOR ERROR infect 1");
+				if(Parameters.comments) System.out.println("SELECTOR ERROR infect 1");
 				e.printStackTrace();
 			}
 			

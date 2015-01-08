@@ -27,7 +27,7 @@ public class Engine implements GameEngine, EventQueue, GameEngineAndQueue {
 	public static int CURE = 2;
 	public static int FAKE = 3;
 	
-	public static boolean comments = false;
+	public static boolean comments = Parameters.comments;
 	
 	Clock clock;
 	Instant now;
