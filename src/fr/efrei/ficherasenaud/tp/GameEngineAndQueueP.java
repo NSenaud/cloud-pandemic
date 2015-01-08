@@ -62,5 +62,6 @@ public class GameEngineAndQueueP extends BaseGameEngineTests {
 		System.out.format("Quarantined: \t%d\n", city.getQuarantinedInhabitants());
 		System.out.format("Died: \t\t%d\n",      city.getInhabitantsDead());
 		System.out.format("Emigrated: \t%d\n",   city.getInhabitantsEmigrated());
+		System.out.format("Immigrated: \t%d\n",  city.getInhabitantsImmigrated());
 	}
 }

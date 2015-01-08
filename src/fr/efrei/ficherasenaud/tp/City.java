@@ -20,6 +20,7 @@ public class City implements Selector<Inhabitant> {
 	
 	private int inhabitantsDead = 0;
 	private int inhabitantsEmigrated = 0;
+	private int inhabitantsImmigrants = 0;
 	
 	private CityPanicManager panicManager;
 	
@@ -228,15 +229,16 @@ public class City implements Selector<Inhabitant> {
 		}
 	}
 	
-	/**
-	 * If the panic takes an inhabitant, he may left the city for another.
-	 * 
-	 * @param inhabitant A panicked inhabitant of the current city
-	 * @param city The city the inhabitant wants to reach
-	 */
-	public void inhabitantEmigratesToCity(Inhabitant inhabitant, City city) {
-		city.addInhabitant(inhabitant);
+	/**************************************************************************
+	 * Update Stats
+	 *************************************************************************/
+	
+	public void incrementEmigrant() {
 		this.inhabitantsEmigrated++;
+	}
+	
+	public void incrementImmigrant() {
+		this.inhabitantsImmigrants++;
 	}
 	
 	/**************************************************************************
@@ -289,6 +291,14 @@ public class City implements Selector<Inhabitant> {
 	 */
 	public int getInhabitantsEmigrated() {
 		return inhabitantsEmigrated;
+	}
+	
+	/**
+	 * 
+	 * @return Emigrated inhabitants number
+	 */
+	public int getInhabitantsImmigrated() {
+		return inhabitantsImmigrants;
 	}
 	
 	/**************************************************************************

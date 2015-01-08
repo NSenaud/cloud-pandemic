@@ -37,6 +37,7 @@ public class ImmigrationEvent implements Event {
 	@Override
 	public void trigger() {
 		this.targetCity.addInhabitant(this.inhabitant);
+		targetCity.incrementImmigrant();
 	}
 
 	/* (non-Javadoc)

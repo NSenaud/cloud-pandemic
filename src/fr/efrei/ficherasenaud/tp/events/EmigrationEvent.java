@@ -39,6 +39,7 @@ public class EmigrationEvent implements Event {
 		
 		if (success == true) {
 			System.out.println("Emigrant sent");
+			sourceCity.incrementEmigrant();
 		}
 		else {
 			System.out.println("Failed to send emigrant");
