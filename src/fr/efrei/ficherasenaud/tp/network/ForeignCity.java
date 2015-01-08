@@ -1,4 +1,4 @@
-package fr.efrei.ficherasenaud.tp;
+package fr.efrei.ficherasenaud.tp.network;
 
 import fr.efrei.paumier.common.core.CityBorder;
 

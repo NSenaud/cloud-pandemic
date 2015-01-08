@@ -1,8 +1,15 @@
-package fr.efrei.ficherasenaud.tp;
+package fr.efrei.ficherasenaud.tp.events;
 
 import java.time.Duration;
 import java.util.ArrayList;
 
+import fr.efrei.ficherasenaud.tp.City;
+import fr.efrei.ficherasenaud.tp.Engine;
+import fr.efrei.ficherasenaud.tp.Inhabitant;
+import fr.efrei.ficherasenaud.tp.Parameters;
+import fr.efrei.ficherasenaud.tp.network.Available;
+import fr.efrei.ficherasenaud.tp.network.Remote;
+import fr.efrei.ficherasenaud.tp.network.Server;
 import fr.efrei.paumier.common.networking.BaseRemoteCityBorder;
 import fr.efrei.paumier.common.time.Event;
 

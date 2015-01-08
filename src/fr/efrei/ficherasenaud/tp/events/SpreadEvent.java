@@ -1,7 +1,11 @@
-package fr.efrei.ficherasenaud.tp;
+package fr.efrei.ficherasenaud.tp.events;
 
 import java.time.Duration;
 
+import fr.efrei.ficherasenaud.tp.City;
+import fr.efrei.ficherasenaud.tp.Engine;
+import fr.efrei.ficherasenaud.tp.Inhabitant;
+import fr.efrei.ficherasenaud.tp.Parameters;
 import fr.efrei.paumier.common.time.Event;
 
 /**

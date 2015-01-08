@@ -1,5 +1,7 @@
-package fr.efrei.ficherasenaud.tp;
+package fr.efrei.ficherasenaud.tp.network;
 
+import fr.efrei.ficherasenaud.tp.Parameters;
+import fr.efrei.ficherasenaud.tp.events.ImmigrationEvent;
 import fr.efrei.paumier.common.networking.BaseRemoteCityBorder;
 import fr.efrei.paumier.common.networking.MessageChannel;
 import fr.efrei.paumier.common.networking.MessageChannelHost;

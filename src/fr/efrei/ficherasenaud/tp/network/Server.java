@@ -1,10 +1,8 @@
-package fr.efrei.ficherasenaud.tp;
+package fr.efrei.ficherasenaud.tp.network;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.List;
-
-import javax.swing.plaf.multi.MultiTabbedPaneUI;
 
 import fr.efrei.paumier.common.networking.MessageChannel;
 import fr.efrei.paumier.common.networking.MessageChannelHost;
@@ -12,8 +10,12 @@ import fr.efrei.paumier.common.networking.MultipointMessageNode;
 
 public class Server implements MessageChannelHost {
 	MultipointMessageNode multipointServer;
+	
+	private int port;
 
 	public Server(int port) {
+		this.port = port;
+		
 		try {
 			this.multipointServer = new MultipointMessageNode(port);
 		} catch (IOException e) {
@@ -24,8 +26,7 @@ public class Server implements MessageChannelHost {
 
 	@Override
 	public int getLocalPort() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.port;
 	}
 
 	@Override
