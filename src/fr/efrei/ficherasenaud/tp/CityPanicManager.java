@@ -17,20 +17,34 @@ public class CityPanicManager {
 		this.city = city;
 		this.engine = engine;
 	}
-	
+
+	/**
+	 * 
+	 * @return 
+	 */
 	public int getPanic() {
 		return amountOfPanic;
 	}
 	
+	/**
+	 * 
+	 */
 	public void OneMoreDeath() {
 		this.amountOfPanic += 5;
 		this.checkPanic();
 	}
+	
+	/**
+	 * 
+	 */
 	public void OneMoreCured() {
 		this.amountOfPanic -= 2;
 		if(amountOfPanic < 0) amountOfPanic = 0;
 	}
 
+	/**
+	 * 
+	 */
 	private void checkPanic() {
 		if (Parameters.online && amountOfPanic > city.getAliveInhabitants()) { // Engine.register(new EmigrationEvent( .. )
 			EmigrationEvent event = new EmigrationEvent(this.engine);

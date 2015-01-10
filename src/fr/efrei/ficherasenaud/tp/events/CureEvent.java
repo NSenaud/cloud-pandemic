@@ -13,7 +13,6 @@ import fr.efrei.paumier.common.time.Event;
  * An implementation of Event to cure inhabitants.
  */
 public class CureEvent implements Event {
-	
 	private Duration duration;
 	private City city;
 	private Inhabitant inhabitant;

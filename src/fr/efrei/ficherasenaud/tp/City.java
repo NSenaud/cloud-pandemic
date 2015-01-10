@@ -233,14 +233,25 @@ public class City implements Selector<Inhabitant> {
 	 * Update Stats
 	 *************************************************************************/
 	
+	/**
+	 * Declare a successful emigration.
+	 */
 	public void incrementEmigrant() {
 		this.inhabitantsEmigrated++;
 	}
 	
+	/**
+	 * Declare a successful immigration.
+	 */
 	public void incrementImmigrant() {
 		this.inhabitantsImmigrants++;
 	}
 	
+	/**
+	 * Change City's panic state.
+	 * 
+	 * @param panic City's panic state
+	 */
 	public void setPanic(boolean panic) {
 		this.panic = panic;
 	}
@@ -305,6 +316,11 @@ public class City implements Selector<Inhabitant> {
 		return inhabitantsImmigrants;
 	}
 	
+	/**
+	 * Get City's state of panic.
+	 * 
+	 * @return City's panic state
+	 */
 	public boolean getPanic() {
 		return this.panic;
 	}
