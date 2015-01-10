@@ -7,7 +7,6 @@ import fr.efrei.paumier.common.selection.Selector;
 import fr.efrei.paumier.common.networking.MessageChannel;
 
 public class Available implements Selector<MessageChannel> {
-
 	public Available() {
 		// TODO Auto-generated constructor stub
 	}
